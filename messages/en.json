@@ -1,0 +1,54 @@
+{
+  "app": {
+    "name": "Galmee School",
+    "tagline": "Know exactly which parents haven't paid this month, and remind them all with one tap."
+  },
+  "nav": {
+    "home": "Home",
+    "menu": "Main menu"
+  },
+  "common": {
+    "language": "Language",
+    "offline": "You are offline",
+    "offlineBody": "Galmee will reconnect automatically. Fee payments you record offline will sync when the internet is back.",
+    "retry": "Try again",
+    "today": "Today",
+    "skipToContent": "Skip to content"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create your school account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 10 characters",
+    "login": "Log in",
+    "signup": "Create account",
+    "logout": "Log out",
+    "noAccount": "New school?",
+    "haveAccount": "Already have an account?",
+    "checkEmail": "Check your email and open the link to confirm your account, then log in.",
+    "errorInvalid": "Wrong email or password.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorPassword": "Password must be at least 10 characters.",
+    "errorEmail": "Enter a valid email address."
+  },
+  "onboarding": {
+    "title": "Set up your school",
+    "intro": "One last step: tell us about your school.",
+    "fullName": "Your full name",
+    "phone": "Phone number",
+    "submit": "Start using Galmee",
+    "error": "Could not create the school. Please try again.",
+    "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567.",
+    "errorRequired": "Fill in all three fields.",
+    "schoolName": "School name"
+  },
+  "home": {
+    "welcome": "Welcome, {name}"
+  },
+  "roles": {
+    "owner": "Owner",
+    "manager": "Manager",
+    "staff": "Staff"
+  }
+}
