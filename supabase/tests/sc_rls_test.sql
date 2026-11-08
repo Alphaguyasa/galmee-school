@@ -1,54 +1,95 @@
--- Galmee Pharmacy RLS + guard test. Run with Supabase `execute_sql`.
--- Creates throwaway users/tenants, runs the checks, then RAISES so EVERYTHING ROLLS BACK.
--- The exception message is the result line; paste it into the dev log.
+-- Galmee School cross-tenant RLS and money RPC test. Run with Supabase `execute_sql`.
+-- Creates throwaway users/tenants, runs the checks, then RAISES so everything rolls back.
+-- The exception message is the result line; every item should read `ok`.
 do $$
-declare ua uuid := gen_random_uuid(); ub uuid := gen_random_uuid(); uc uuid := gen_random_uuid();
-  ta uuid; tb uuid; n int; r text := ''; ok boolean; msg text;
+declare
+  ua uuid := gen_random_uuid(); ub uuid := gen_random_uuid(); uc uuid := gen_random_uuid();
+  ta uuid; tb uuid;
+  ca uuid; cb uuid; ga uuid; sa uuid; sb uuid; ea uuid; eb uuid; pa uuid; pb uuid; ia uuid; ib uuid;
+  ref1 uuid := gen_random_uuid(); r jsonb; n int; res text := ''; msg text;
 begin
   insert into auth.users(id, aud, role, email) values
-    (ua,'authenticated','authenticated','ph-rls-a@test.invalid'),
-    (ub,'authenticated','authenticated','ph-rls-b@test.invalid'),
-    (uc,'authenticated','authenticated','ph-rls-c@test.invalid');
-  insert into public.tenants(name, vertical) values ('Galmee Pharmacy Demo','pharmacy') returning id into ta;
-  insert into public.tenants(name, vertical) values ('Real Pharmacy B','pharmacy') returning id into tb;
+    (ua,'authenticated','authenticated','sc-rls-a@test.invalid'),
+    (ub,'authenticated','authenticated','sc-rls-b@test.invalid'),
+    (uc,'authenticated','authenticated','sc-rls-c@test.invalid');
+  insert into public.tenants(name, vertical) values ('RLS School A','school') returning id into ta;
+  insert into public.tenants(name, vertical) values ('RLS School B','school') returning id into tb;
   insert into public.profiles(user_id, tenant_id, full_name, role) values
     (ua, ta, 'A owner','owner'), (ub, tb, 'B owner','owner'), (uc, ta, 'A staff','staff');
-  insert into public.items(tenant_id, name_en, price) values (tb, 'B item', 10);
+
+  insert into public.sc_classes(tenant_id, grade) values (ta,'Grade 1') returning id into ca;
+  insert into public.sc_classes(tenant_id, grade) values (tb,'Grade 1') returning id into cb;
+  insert into public.sc_guardians(tenant_id, full_name, phone) values (ta,'Parent A','0911000001') returning id into ga;
+  insert into public.sc_students(tenant_id, full_name, guardian_id) values (ta,'Student A', ga) returning id into sa;
+  insert into public.sc_students(tenant_id, full_name) values (tb,'Student B') returning id into sb;
+  insert into public.sc_enrollments(tenant_id, student_id, class_id, academic_year) values (ta, sa, ca, 2019) returning id into ea;
+  insert into public.sc_enrollments(tenant_id, student_id, class_id, academic_year) values (tb, sb, cb, 2019) returning id into eb;
+  insert into public.sc_fee_plans(tenant_id, name, amount) values (ta,'Tuition', 1000) returning id into pa;
+  insert into public.sc_fee_plans(tenant_id, name, amount) values (tb,'Tuition', 900) returning id into pb;
 
   perform set_config('role','authenticated', true);
 
-  -- staff of the demo tenant cannot seed
-  perform set_config('request.jwt.claims', json_build_object('sub', uc, 'role','authenticated')::text, true);
-  begin perform public.ph_load_demo_data(); msg := 'ran'; exception when others then msg := sqlerrm; end;
-  r := r || 'staff seed=' || msg || ' (expect owner_only); ';
-
-  -- owner of a non-demo tenant cannot seed
-  perform set_config('request.jwt.claims', json_build_object('sub', ub, 'role','authenticated')::text, true);
-  begin perform public.ph_load_demo_data(); msg := 'ran'; exception when others then msg := sqlerrm; end;
-  r := r || 'other tenant seed=' || msg || ' (expect not_demo_tenant); ';
-
-  -- demo owner seeds own tenant only
+  -- Owner A generates invoices for their own school only.
   perform set_config('request.jwt.claims', json_build_object('sub', ua, 'role','authenticated')::text, true);
-  select public.ph_load_demo_data() into n;                 r := r || 'demo seed items=' || n || ' (expect 40); ';
-  select count(*) into n from public.items;                 r := r || 'A sees items=' || n || ' (expect 40); ';
-  select count(*) into n from public.customers;             r := r || 'A customers=' || n || ' (expect 15); ';
-  select count(*) into n from public.customer_balances where balance > 0; r := r || 'A owing=' || n || ' (expect 12); ';
-  select count(*) into n from public.sales;                 r := r || 'A sales=' || n || ' (expect 20); ';
-  select count(*) into n from public.stock_batches where expiry_date < current_date + 30 and qty > 0;
-  r := r || 'A batches <30d=' || n || ' (expect >=6); ';
-  select count(*) into n from public.item_stock where qty_on_hand < reorder_level; r := r || 'A low stock=' || n || ' (expect >=5); ';
-  begin perform public.ph_load_demo_data(); msg := 'ran'; exception when others then msg := sqlerrm; end;
-  r := r || 'second seed=' || msg || ' (expect demo_already_loaded); ';
+  select public.sc_generate_invoices(2019,'monthly','2019-03') into n;
+  res := res || 'generate ' || case when n=1 then 'ok' else 'FAIL '||n end || '; ';
+  select public.sc_generate_invoices(2019,'monthly','2019-03') into n;
+  res := res || 'generate repeat ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select id into ia from public.sc_fee_invoices;
+  select count(*) into n from public.sc_students;
+  res := res || 'A sees own students ' || case when n=1 then 'ok' else 'FAIL '||n end || '; ';
 
-  -- tenant B still sees only its own item
+  -- Cross-tenant insert with a forged tenant_id is refused.
+  begin insert into public.sc_students(tenant_id, full_name) values (tb,'Forged'); msg := 'inserted';
+  exception when others then msg := 'denied'; end;
+  res := res || 'forged insert ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+
+  -- A student cannot point at another tenant's guardian or class.
+  begin insert into public.sc_enrollments(student_id, class_id, academic_year) values (sa, cb, 2018); msg := 'inserted';
+  exception when others then msg := 'denied'; end;
+  res := res || 'cross-tenant class ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+
+  -- Staff can take a payment, cannot generate invoices or touch fee rows directly.
+  perform set_config('request.jwt.claims', json_build_object('sub', uc, 'role','authenticated')::text, true);
+  begin perform public.sc_generate_invoices(2019,'monthly','2019-04'); msg := 'ran'; exception when others then msg := sqlerrm; end;
+  res := res || 'staff generate ' || case when msg='owner_or_manager_only' then 'ok' else 'FAIL '||msg end || '; ';
+  update public.sc_fee_invoices set paid = amount where id = ia;
+  select paid::int into n from public.sc_fee_invoices where id = ia;
+  res := res || 'direct invoice update ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  begin insert into public.sc_fee_plans(name, amount) values ('Staff plan', 5); msg := 'inserted'; exception when others then msg := 'denied'; end;
+  res := res || 'staff plan insert ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+  select public.sc_record_fee_payment(ia, 400, 'cash', null, ref1) into r;
+  res := res || 'payment ' || case when (r->>'receipt_no')='1' and (r->>'remaining')::numeric=600 then 'ok' else 'FAIL '||r::text end || '; ';
+  select public.sc_record_fee_payment(ia, 400, 'cash', null, ref1) into r;
+  res := res || 'replay ' || case when (r->>'replayed')='true' and (r->>'receipt_no')='1' then 'ok' else 'FAIL '||r::text end || '; ';
+  select paid::int into n from public.sc_fee_invoices where id = ia;
+  res := res || 'paid once ' || case when n=400 then 'ok' else 'FAIL '||n end || '; ';
+  begin perform public.sc_record_fee_payment(ia, 601); msg := 'ran'; exception when others then msg := sqlerrm; end;
+  res := res || 'overpayment ' || case when msg='overpayment' then 'ok' else 'FAIL '||msg end || '; ';
+  select count(*) into n from public.payments where ref_table='sc_fee_invoices' and ref_id=ia;
+  res := res || 'core payment ' || case when n=1 then 'ok' else 'FAIL '||n end || '; ';
+
+  -- Tenant B sees and pays nothing of tenant A.
   perform set_config('request.jwt.claims', json_build_object('sub', ub, 'role','authenticated')::text, true);
-  select count(*) into n from public.items;                 r := r || 'B sees items=' || n || ' (expect 1); ';
+  select count(*) into n from public.sc_fee_invoices;
+  res := res || 'B invoices ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select count(*) into n from public.sc_fee_receipts;
+  res := res || 'B receipts ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select count(*) into n from public.sc_unpaid_by_class;
+  res := res || 'B unpaid view ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  begin perform public.sc_record_fee_payment(ia, 100); msg := 'ran'; exception when others then msg := sqlerrm; end;
+  res := res || 'B pays A invoice ' || case when msg='invoice_not_found' then 'ok' else 'FAIL '||msg end || '; ';
+  update public.sc_students set full_name = 'Hacked' where id = sa;
+  get diagnostics n = row_count;
+  res := res || 'B update A student ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
 
-  -- anon cannot call it
+  -- Anon sees nothing and cannot call the RPCs.
   perform set_config('role','anon', true);
   perform set_config('request.jwt.claims', '{"role":"anon"}', true);
-  begin perform public.ph_load_demo_data(); msg := 'ran'; exception when others then msg := sqlerrm; end;
-  r := r || 'anon seed=' || msg || ' (expect permission denied); ';
+  begin select count(*) into n from public.sc_students; msg := n::text; exception when others then msg := 'denied'; end;
+  res := res || 'anon students ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
+  begin perform public.sc_record_fee_payment(ia, 1); msg := 'ran'; exception when others then msg := 'denied'; end;
+  res := res || 'anon rpc ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
 
-  raise exception 'PH_RLS_TEST_RESULTS (rolled back): %', r;
+  raise exception 'SC_RLS_RESULT %', res;
 end $$;

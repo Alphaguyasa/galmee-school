@@ -10,7 +10,7 @@
 - [x] Ethiopian calendar date display helper + tests
 - [x] App shell: bottom navigation on mobile, sidebar on desktop, tenant name and logo
 - [ ] Staff management (owner only): invite staff, set role
-- [ ] Generated Supabase TypeScript types committed
+- [x] Generated Supabase TypeScript types committed
 
 ## M1: Core screens
 
@@ -29,18 +29,18 @@
 - [ ] Grade entry and report card print
 - [ ] Attendance
 - [ ] Parent contact list
-- [ ] Migration: sc_students
-- [ ] Migration: sc_guardians
-- [ ] Migration: sc_classes
-- [ ] Migration: sc_enrollments
-- [ ] Migration: sc_fee_plans
-- [ ] Migration: sc_fee_invoices
-- [ ] Migration: sc_subjects
-- [ ] Migration: sc_grades
-- [ ] Migration: sc_attendance
+- [x] Migration: sc_students
+- [x] Migration: sc_guardians
+- [x] Migration: sc_classes
+- [x] Migration: sc_enrollments
+- [x] Migration: sc_fee_plans
+- [x] Migration: sc_fee_invoices
+- [x] Migration: sc_subjects
+- [x] Migration: sc_grades
+- [x] Migration: sc_attendance
 - [ ] Generate monthly/term invoices for all students in one click
-- [ ] `sc_record_fee_payment` RPC (writes core `payments`)
-- [ ] Rank calculation per class
+- [x] `sc_record_fee_payment` RPC (writes core `payments`)
+- [x] Rank calculation per class
 
 ## M3: Notifications
 
@@ -68,7 +68,7 @@
 - [x] Tailwind theme tokens and `next/font` fonts from DESIGN.md
 - [x] `server-only` Data Access Layer in `src/server/dal/`; every Server Action validates with zod and re-checks auth + role
 - [x] Security headers and CSP with nonce (the security guidelines section 5)
-- [ ] Cross-tenant RLS test extended to this product's tables and passing
+- [x] Cross-tenant RLS test extended to this product's tables and passing
 - [x] Playwright screenshot script for 360 px and 1280 px
 - [ ] `npm audit` clean, Dependabot active
 - [ ] Self-audit (the security guidelines section 9) recorded in the dev log

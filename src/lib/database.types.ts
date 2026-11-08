@@ -15,6 +15,331 @@ export type Database = {
   }
   public: {
     Tables: {
+      sc_classes: {
+        Row: {
+          id: string
+          tenant_id: string
+          grade: string
+          section: string
+          sort_order: number
+          active: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          grade: string
+          section?: string
+          sort_order?: number
+          active?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          grade?: string
+          section?: string
+          sort_order?: number
+          active?: boolean
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_guardians: {
+        Row: {
+          id: string
+          tenant_id: string
+          full_name: string
+          phone: string
+          relation: string
+          telegram_chat_id: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          full_name: string
+          phone: string
+          relation?: string
+          telegram_chat_id?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          full_name?: string
+          phone?: string
+          relation?: string
+          telegram_chat_id?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_students: {
+        Row: {
+          id: string
+          tenant_id: string
+          full_name: string
+          gender: string | null
+          date_of_birth: string | null
+          student_no: string | null
+          guardian_id: string | null
+          status: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          full_name: string
+          gender?: string | null
+          date_of_birth?: string | null
+          student_no?: string | null
+          guardian_id?: string | null
+          status?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          full_name?: string
+          gender?: string | null
+          date_of_birth?: string | null
+          student_no?: string | null
+          guardian_id?: string | null
+          status?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_enrollments: {
+        Row: {
+          id: string
+          tenant_id: string
+          student_id: string
+          class_id: string
+          academic_year: number
+          roll_no: number | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          student_id: string
+          class_id: string
+          academic_year: number
+          roll_no?: number | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          student_id?: string
+          class_id?: string
+          academic_year?: number
+          roll_no?: number | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_fee_plans: {
+        Row: {
+          id: string
+          tenant_id: string
+          name: string
+          grade: string | null
+          period: string
+          amount: number
+          active: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          name: string
+          grade?: string | null
+          period?: string
+          amount: number
+          active?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          name?: string
+          grade?: string | null
+          period?: string
+          amount?: number
+          active?: boolean
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_fee_invoices: {
+        Row: {
+          id: string
+          tenant_id: string
+          enrollment_id: string
+          fee_plan_id: string
+          period_key: string
+          description: string
+          amount: number
+          paid: number
+          due_date: string | null
+          status: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          enrollment_id: string
+          fee_plan_id: string
+          period_key: string
+          description: string
+          amount: number
+          paid?: number
+          due_date?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          enrollment_id?: string
+          fee_plan_id?: string
+          period_key?: string
+          description?: string
+          amount?: number
+          paid?: number
+          due_date?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_fee_receipts: {
+        Row: {
+          id: string
+          tenant_id: string
+          invoice_id: string
+          payment_id: string
+          receipt_no: number
+          amount: number
+          method: Database["public"]["Enums"]["pay_method"]
+          client_ref: string | null
+          received_by: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          invoice_id: string
+          payment_id: string
+          receipt_no: number
+          amount: number
+          method: Database["public"]["Enums"]["pay_method"]
+          client_ref?: string | null
+          received_by?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          invoice_id?: string
+          payment_id?: string
+          receipt_no?: number
+          amount?: number
+          method?: Database["public"]["Enums"]["pay_method"]
+          client_ref?: string | null
+          received_by?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_subjects: {
+        Row: {
+          id: string
+          tenant_id: string
+          name: string
+          grade: string | null
+          max_mark: number
+          sort_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          name: string
+          grade?: string | null
+          max_mark?: number
+          sort_order?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          name?: string
+          grade?: string | null
+          max_mark?: number
+          sort_order?: number
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sc_grades: {
+        Row: {
+          id: string
+          tenant_id: string
+          enrollment_id: string
+          subject_id: string
+          term: number
+          mark: number
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          enrollment_id: string
+          subject_id: string
+          term: number
+          mark: number
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          enrollment_id?: string
+          subject_id?: string
+          term?: number
+          mark?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sc_attendance: {
+        Row: {
+          id: string
+          tenant_id: string
+          enrollment_id: string
+          day: string
+          status: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id?: string
+          enrollment_id: string
+          day: string
+          status: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          enrollment_id?: string
+          day?: string
+          status?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           action: string
@@ -769,6 +1094,14 @@ export type Database = {
       }
     }
     Views: {
+      sc_unpaid_by_class: {
+        Row: { tenant_id: string; class_id: string; grade: string; section: string; sort_order: number; period_key: string; students: number; unpaid_students: number; owed: number }
+        Relationships: []
+      }
+      sc_class_term_ranks: {
+        Row: { tenant_id: string; enrollment_id: string; class_id: string; academic_year: number; term: number; total: number; average: number; class_rank: number; class_size: number }
+        Relationships: []
+      }
       customer_balances: {
         Row: {
           balance: number | null
@@ -812,6 +1145,14 @@ export type Database = {
       }
     }
     Functions: {
+      sc_generate_invoices: {
+        Args: { p_academic_year: number; p_period: string; p_period_key: string; p_due?: string }
+        Returns: number
+      }
+      sc_record_fee_payment: {
+        Args: { p_invoice: string; p_amount: number; p_method?: Database["public"]["Enums"]["pay_method"]; p_reference?: string; p_client_ref?: string }
+        Returns: Json
+      }
       adjust_stock: {
         Args: { p_batch: string; p_new_qty: number; p_reason: string }
         Returns: undefined
