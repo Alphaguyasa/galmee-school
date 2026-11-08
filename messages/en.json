@@ -7,7 +7,8 @@
     "home": "Home",
     "menu": "Main menu",
     "students": "Students",
-    "fees": "Fees"
+    "fees": "Fees",
+    "attendance": "Attendance"
   },
   "common": {
     "language": "Language",
@@ -160,6 +161,24 @@
     "errorAmount": "Enter an amount above zero, for example 1500.",
     "errorOverpayment": "That is more than the amount left to pay.",
     "errorPayment": "Could not record the payment. Check your connection and try again; it will not be counted twice.",
+    "errorSave": "Could not save. Check your connection and try again."
+  },
+  "attendance": {
+    "title": "Attendance",
+    "previousDay": "Previous day",
+    "nextDay": "Next day",
+    "summary": "{absent} absent, {late} late, out of {total}",
+    "notSavedYet": "Not saved for this day yet. Everyone starts as present.",
+    "noClasses": "Add your classes first, under Students.",
+    "emptyClass": "No students in this class yet.",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "excused": "Excused",
+    "save": "Save attendance",
+    "saved": "Attendance saved.",
+    "errorRole": "Only the owner or a manager can do this.",
+    "errorDay": "Choose today or a past day.",
     "errorSave": "Could not save. Check your connection and try again."
   }
 }

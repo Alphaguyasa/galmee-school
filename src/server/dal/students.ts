@@ -82,6 +82,33 @@ export async function registerCounts(year: number): Promise<{ students: number; 
   return { students: students.count ?? 0, classes: classes.count ?? 0 };
 }
 
+/** Marks already saved for one class on one day, by enrolment. */
+export async function listAttendance(day: string, enrollmentIds: string[]): Promise<Record<string, string>> {
+  if (enrollmentIds.length === 0) return {};
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_attendance")
+    .select("enrollment_id, status")
+    .eq("day", day)
+    .in("enrollment_id", enrollmentIds);
+  if (error) throw new Error("Could not load attendance");
+  return Object.fromEntries(data.map((r) => [r.enrollment_id, r.status]));
+}
+
+/** One write for the class; saving the same day again replaces its marks. */
+export async function saveAttendance(
+  tenantId: string,
+  day: string,
+  marks: { enrollmentId: string; status: string }[],
+): Promise<{ ok: boolean }> {
+  const supabase = await createClient();
+  const { error } = await supabase.from("sc_attendance").upsert(
+    marks.map((m) => ({ tenant_id: tenantId, enrollment_id: m.enrollmentId, day, status: m.status })),
+    { onConflict: "tenant_id,enrollment_id,day" },
+  );
+  return { ok: !error };
+}
+
 function toResult(error: { code?: string } | null): WriteResult {
   if (!error) return { ok: true };
   return { ok: false, reason: error.code === "23505" ? "duplicate" : "error" };

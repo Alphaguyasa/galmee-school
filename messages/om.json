@@ -7,7 +7,8 @@
     "home": "Jalqaba",
     "menu": "Baafata ijoo",
     "students": "Barattoota",
-    "fees": "Kaffaltii"
+    "fees": "Kaffaltii",
+    "attendance": "Argamuu"
   },
   "common": {
     "language": "Afaan",
@@ -160,6 +161,24 @@
     "errorAmount": "Hanga zeeroo ol galchaa, fakkeenyaaf 1500.",
     "errorOverpayment": "Kun hanga hafe caala.",
     "errorPayment": "Kaffaltii galmeessuun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa; al lama hin lakkaa'amu.",
+    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+  },
+  "attendance": {
+    "title": "Argamuu barattootaa",
+    "previousDay": "Guyyaa darbe",
+    "nextDay": "Guyyaa itti aanu",
+    "summary": "{total} keessaa {absent} hin argamne, {late} turan",
+    "notSavedYet": "Guyyaa kanaaf hin kuufamne. Hundi \"argame\" jedhamee jalqaba.",
+    "noClasses": "Dursa \"Barattoota\" jalatti kutaalee dabalaa.",
+    "emptyClass": "Kutaa kana keessa barataan hin jiru.",
+    "present": "Argame",
+    "absent": "Hin argamne",
+    "late": "Ture",
+    "excused": "Hayyamaan",
+    "save": "Argamuu olkaa'i",
+    "saved": "Argamuun olkaa'ameera.",
+    "errorRole": "Kana kan raawwachuu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
+    "errorDay": "Har'a ykn guyyaa darbe filadhaa.",
     "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
   }
 }

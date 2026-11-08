@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { addisToday } from "@/lib/school-year";
 
 export const MIN_PASSWORD = 10;
 
@@ -102,3 +103,21 @@ export const feesQuerySchema = z.object({
 });
 
 export const uuidParam = z.uuid();
+
+const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+
+export const ATTENDANCE_STATUSES = ["present", "absent", "late", "excused"] as const;
+
+/** A school day to mark: never in the future (Addis Ababa time). */
+export const attendanceDaySchema = isoDay.refine((d) => !Number.isNaN(Date.parse(d)) && d <= addisToday());
+
+/** `mark_<enrollment uuid>` fields of the attendance form, one per student. */
+export const attendanceMarksSchema = z
+  .array(z.object({ enrollmentId: z.uuid(), status: z.enum(ATTENDANCE_STATUSES) }))
+  .min(1)
+  .max(300);
+
+export const attendanceQuerySchema = z.object({
+  class: z.uuid().optional().catch(undefined),
+  day: attendanceDaySchema.optional().catch(undefined),
+});

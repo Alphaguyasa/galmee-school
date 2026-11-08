@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { HandCoins, Home, Users } from "lucide-react";
+import { CalendarCheck, HandCoins, Home, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
   { href: "/", key: "home", icon: Home },
   { href: "/students", key: "students", icon: Users },
   { href: "/fees", key: "fees", icon: HandCoins },
+  { href: "/attendance", key: "attendance", icon: CalendarCheck },
 ] as const;
 
 function isActive(pathname: string, href: string) {

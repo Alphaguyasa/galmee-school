@@ -79,6 +79,14 @@ begin
   exception when others then msg := 'denied'; end;
   res := res || 'add student cross-tenant class ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
 
+  -- Staff marks attendance; saving the same day again replaces the mark.
+  insert into public.sc_attendance(tenant_id, enrollment_id, day, status) values (ta, ea, '2026-11-08', 'absent')
+    on conflict (tenant_id, enrollment_id, day) do update set status = excluded.status;
+  insert into public.sc_attendance(tenant_id, enrollment_id, day, status) values (ta, ea, '2026-11-08', 'late')
+    on conflict (tenant_id, enrollment_id, day) do update set status = excluded.status;
+  select status into msg from public.sc_attendance where enrollment_id = ea;
+  res := res || 'attendance upsert ' || case when msg='late' then 'ok' else 'FAIL '||coalesce(msg,'none') end || '; ';
+
   -- Tenant B sees and pays nothing of tenant A.
   perform set_config('request.jwt.claims', json_build_object('sub', ub, 'role','authenticated')::text, true);
   select count(*) into n from public.sc_fee_invoices;
@@ -95,6 +103,10 @@ begin
   res := res || 'B invoice register ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
   select count(*) into n from public.sc_receipt_details where tenant_id = ta;
   res := res || 'B receipt details ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select count(*) into n from public.sc_attendance where tenant_id = ta;
+  res := res || 'B reads A attendance ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  begin insert into public.sc_attendance(tenant_id, enrollment_id, day, status) values (tb, ea, '2026-11-09', 'absent'); msg := 'ran'; exception when others then msg := 'denied'; end;
+  res := res || 'B marks A enrolment ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
   update public.sc_students set full_name = 'Hacked' where id = sa;
   get diagnostics n = row_count;
   res := res || 'B update A student ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
