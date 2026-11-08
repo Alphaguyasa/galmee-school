@@ -107,7 +107,11 @@
     "errorRequired": "Maqaa barataa, kutaa fi maqaa maatii guutaa.",
     "errorPhone": "Lakkoofsa bilbila Itoophiyaa galchaa, fakkeenyaaf 0911 234 567.",
     "errorStudentNoTaken": "Lakkoofsi kun kan barataa biraati.",
-    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa.",
+    "parents": "Maatii",
+    "parentsTitle": "Bilbila maatii",
+    "noParents": "Maatiin hin jiran. Yeroo barattoota galmeessitan asitti mul'atu.",
+    "parentCount": "{count, plural, one {Maatii #} other {Maatii #}}"
   },
   "fees": {
     "title": "Kaffaltii",

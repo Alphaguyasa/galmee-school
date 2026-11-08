@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Phone, Search, Settings2, UserPlus } from "lucide-react";
+import { Contact, Phone, Search, Settings2, UserPlus } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { currentSchoolYear } from "@/lib/school-year";
@@ -37,6 +37,10 @@ export default async function StudentsPage({
               {t("addStudent")}
             </Link>
           ) : null}
+          <Link href="/students/parents" className={buttonVariants({ variant: "outline" })}>
+            <Contact aria-hidden />
+            {t("parents")}
+          </Link>
           {canManage ? (
             <Link href="/students/classes" className={buttonVariants({ variant: "outline" })}>
               <Settings2 aria-hidden />

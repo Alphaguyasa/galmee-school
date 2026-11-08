@@ -68,6 +68,36 @@ export async function listRegister(input: {
   }));
 }
 
+export type ParentContactDTO = { guardianId: string; name: string; phone: string; children: string[] };
+
+/** Every parent with a child enrolled this year, children grouped under the parent. */
+export async function listParentContacts(year: number): Promise<ParentContactDTO[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_student_register")
+    .select("guardian_id, guardian_name, guardian_phone, full_name, grade, section")
+    .eq("academic_year", year)
+    .eq("status", "active")
+    .not("guardian_id", "is", null)
+    .order("guardian_name")
+    .limit(2000);
+  if (error) throw new Error("Could not load parent contacts");
+
+  const byGuardian = new Map<string, ParentContactDTO>();
+  for (const r of data) {
+    if (!r.guardian_id || !r.guardian_name || !r.guardian_phone) continue;
+    const entry = byGuardian.get(r.guardian_id) ?? {
+      guardianId: r.guardian_id,
+      name: r.guardian_name,
+      phone: r.guardian_phone,
+      children: [],
+    };
+    entry.children.push(`${r.full_name} (${r.grade} ${r.section})`);
+    byGuardian.set(r.guardian_id, entry);
+  }
+  return [...byGuardian.values()];
+}
+
 export async function registerCounts(year: number): Promise<{ students: number; classes: number }> {
   const supabase = await createClient();
   const [students, classes] = await Promise.all([

@@ -28,7 +28,7 @@
 - [x] Unpaid fees by class
 - [ ] Grade entry and report card print
 - [x] Attendance
-- [ ] Parent contact list
+- [x] Parent contact list
 - [x] Migration: sc_students
 - [x] Migration: sc_guardians
 - [x] Migration: sc_classes

@@ -107,7 +107,11 @@
     "errorRequired": "Fill in the student name, class and parent name.",
     "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567.",
     "errorStudentNoTaken": "Another student already has that number.",
-    "errorSave": "Could not save. Check your connection and try again."
+    "errorSave": "Could not save. Check your connection and try again.",
+    "parents": "Parents",
+    "parentsTitle": "Parent contacts",
+    "noParents": "No parents yet. They appear here when you register students.",
+    "parentCount": "{count, plural, one {# parent} other {# parents}}"
   },
   "fees": {
     "title": "Fees",
