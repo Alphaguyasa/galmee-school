@@ -22,10 +22,10 @@
 
 ## M2: Galmee School features
 
-- [ ] Student register by class and section
-- [ ] Fee plans per grade
-- [ ] Fee collection with receipt
-- [ ] Unpaid fees by class
+- [x] Student register by class and section
+- [x] Fee plans per grade
+- [x] Fee collection with receipt
+- [x] Unpaid fees by class
 - [ ] Grade entry and report card print
 - [ ] Attendance
 - [ ] Parent contact list
@@ -38,7 +38,7 @@
 - [x] Migration: sc_subjects
 - [x] Migration: sc_grades
 - [x] Migration: sc_attendance
-- [ ] Generate monthly/term invoices for all students in one click
+- [x] Generate monthly/term invoices for all students in one click
 - [x] `sc_record_fee_payment` RPC (writes core `payments`)
 - [x] Rank calculation per class
 
