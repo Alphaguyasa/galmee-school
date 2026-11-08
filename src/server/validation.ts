@@ -57,3 +57,48 @@ export const registerQuerySchema = z.object({
 export function cleanSearchTerm(q: string): string {
   return q.replace(/[,()"\\*%:]/g, " ").replace(/\s+/g, " ").trim();
 }
+
+const amountSchema = z
+  .string()
+  .trim()
+  .regex(/^\d{1,10}(\.\d{1,2})?$/)
+  .transform(Number)
+  .refine((n) => n > 0);
+
+export const FEE_PERIODS = ["monthly", "term", "annual"] as const;
+export const COUNTER_METHODS = ["cash", "telebirr", "cbe_birr", "bank", "other"] as const;
+
+export const feePlanSchema = z.object({
+  name: z.string().trim().min(2).max(80),
+  grade: z.string().trim().max(30),
+  period: z.enum(FEE_PERIODS),
+  amount: amountSchema,
+});
+
+export const generateSchema = z.object({
+  period: z
+    .string()
+    .regex(/^(monthly:\d{4}-(0[1-9]|1[0-3])|term:\d{4}-T[1-4]|annual:\d{4})$/)
+    .transform((v) => {
+      const [type, key] = v.split(":");
+      return { type: type as (typeof FEE_PERIODS)[number], key, year: Number(key.slice(0, 4)) };
+    }),
+});
+
+export const paymentSchema = z.object({
+  invoiceId: z.uuid(),
+  amount: amountSchema,
+  method: z.enum(COUNTER_METHODS),
+  reference: z.string().trim().max(60),
+  clientRef: z.uuid(),
+});
+
+const periodKey = z.string().regex(/^\d{4}(-(0[1-9]|1[0-3]|T[1-4]))?$/);
+
+/** Query string of the fee screens. Bad values fall back to "not set". */
+export const feesQuerySchema = z.object({
+  period: periodKey.optional().catch(undefined),
+  generated: z.coerce.number().int().min(0).optional().catch(undefined),
+});
+
+export const uuidParam = z.uuid();

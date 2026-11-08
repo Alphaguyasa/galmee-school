@@ -35,14 +35,14 @@ function TenantBadge({
 export async function AppShell({ tenantName, logoUrl, userName, roleLabel, children }: ShellProps) {
   const [t, tCommon] = await Promise.all([getTranslations("auth"), getTranslations("common")]);
   return (
-    <div className="min-h-dvh md:grid md:grid-cols-[15rem_1fr]">
+    <div className="min-h-dvh md:grid md:grid-cols-[15rem_1fr] print:block">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-card focus:px-4 focus:py-3 focus:text-foreground"
       >
         {tCommon("skipToContent")}
       </a>
-      <aside className="hidden border-r bg-card md:flex md:flex-col md:gap-6 md:p-4">
+      <aside className="hidden border-r bg-card md:flex md:flex-col md:gap-6 md:p-4 print:hidden">
         <TenantBadge tenantName={tenantName} logoUrl={logoUrl} />
         <AppNav variant="side" />
         <div className="mt-auto grid gap-3">
@@ -61,7 +61,7 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, child
       </aside>
 
       <div className="flex min-w-0 flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-2 bg-primary px-4 text-primary-foreground md:hidden">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-2 bg-primary px-4 text-primary-foreground md:hidden print:hidden">
           <TenantBadge tenantName={tenantName} logoUrl={logoUrl} inverse />
           <div className="flex items-center gap-1">
             <LanguageSwitcher inverse />

@@ -3,22 +3,36 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { CalendarDays, ChevronRight } from "lucide-react";
 import type { Locale } from "@/i18n/config";
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
+import { currentPeriodKey } from "@/lib/fee-period";
+import { formatBirr, sumMoney } from "@/lib/money";
 import { currentSchoolYear } from "@/lib/school-year";
+import { listUnpaidByClass } from "@/server/dal/fees";
 import { getSession } from "@/server/dal/session";
 import { registerCounts } from "@/server/dal/students";
 
 export default async function HomePage() {
-  const [{ profile }, counts, t, tCommon, locale] = await Promise.all([
+  const year = currentSchoolYear();
+  const [{ profile }, counts, unpaidRows, t, tCommon, locale] = await Promise.all([
     getSession(),
-    registerCounts(currentSchoolYear()),
+    registerCounts(year),
+    listUnpaidByClass(year),
     getTranslations("home"),
     getTranslations("common"),
     getLocale() as Promise<Locale>,
   ]);
 
+  const thisMonth = unpaidRows.filter((r) => r.periodKey === currentPeriodKey());
+  const unpaid = thisMonth.reduce((n, r) => n + r.unpaidStudents, 0);
+  const owed = sumMoney(thisMonth.map((r) => r.owed));
+
   const rows = [
-    { label: t("studentsThisYear"), value: counts.students },
-    { label: t("classes"), value: counts.classes },
+    {
+      label: thisMonth.length > 0 ? t("unpaidThisMonth", { owed: formatBirr(owed, locale) }) : t("noInvoicesThisMonth"),
+      value: thisMonth.length > 0 ? unpaid : "-",
+      href: "/fees",
+    },
+    { label: t("studentsThisYear"), value: counts.students, href: "/students" },
+    { label: t("classes"), value: counts.classes, href: "/students" },
   ];
 
   return (
@@ -35,7 +49,7 @@ export default async function HomePage() {
       <ul className="border-t">
         {rows.map((row) => (
           <li key={row.label} className="border-b">
-            <Link href="/students" className="grid min-h-16 grid-cols-[4rem_1fr_auto] items-stretch hover:bg-accent/60">
+            <Link href={row.href} className="grid min-h-16 grid-cols-[4rem_1fr_auto] items-stretch hover:bg-accent/60">
               <span className="num flex items-center justify-center border-r-2 border-margin text-xl font-bold">
                 {row.value}
               </span>

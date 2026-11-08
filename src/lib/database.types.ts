@@ -1094,6 +1094,50 @@ export type Database = {
       }
     }
     Views: {
+      sc_invoice_register: {
+        Row: {
+          tenant_id: string
+          invoice_id: string
+          period_key: string
+          description: string
+          amount: number
+          paid: number
+          remaining: number
+          status: string
+          due_date: string | null
+          enrollment_id: string
+          academic_year: number
+          roll_no: number | null
+          class_id: string
+          grade: string
+          section: string
+          student_id: string
+          full_name: string
+          guardian_name: string | null
+          guardian_phone: string | null
+        }
+        Relationships: []
+      }
+      sc_receipt_details: {
+        Row: {
+          tenant_id: string
+          receipt_id: string
+          receipt_no: number
+          amount: number
+          method: Database["public"]["Enums"]["pay_method"]
+          created_at: string
+          invoice_id: string
+          period_key: string
+          description: string
+          invoice_amount: number
+          remaining: number
+          grade: string
+          section: string
+          full_name: string
+          guardian_name: string | null
+        }
+        Relationships: []
+      }
       sc_student_register: {
         Row: {
           tenant_id: string

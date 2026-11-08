@@ -91,6 +91,10 @@ begin
   res := res || 'B pays A invoice ' || case when msg='invoice_not_found' then 'ok' else 'FAIL '||msg end || '; ';
   select count(*) into n from public.sc_student_register where tenant_id = ta;
   res := res || 'B register view ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select count(*) into n from public.sc_invoice_register where tenant_id = ta;
+  res := res || 'B invoice register ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
+  select count(*) into n from public.sc_receipt_details where tenant_id = ta;
+  res := res || 'B receipt details ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
   update public.sc_students set full_name = 'Hacked' where id = sa;
   get diagnostics n = row_count;
   res := res || 'B update A student ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
@@ -107,6 +111,11 @@ begin
   res := res || 'anon register ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
   begin perform public.sc_add_student('Anon','m',null,ca,2019,'Anon Parent','0911000004','parent'); msg := 'ran'; exception when others then msg := 'denied'; end;
   res := res || 'anon add student ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+
+  begin select count(*) into n from public.sc_invoice_register; msg := n::text; exception when others then msg := 'denied'; end;
+  res := res || 'anon invoice register ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
+  begin select count(*) into n from public.sc_receipt_details; msg := n::text; exception when others then msg := 'denied'; end;
+  res := res || 'anon receipt details ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
 
   raise exception 'SC_RLS_RESULT %', res;
 end $$;

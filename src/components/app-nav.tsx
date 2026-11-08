@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Home, Users } from "lucide-react";
+import { HandCoins, Home, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
   { href: "/", key: "home", icon: Home },
   { href: "/students", key: "students", icon: Users },
+  { href: "/fees", key: "fees", icon: HandCoins },
 ] as const;
 
 function isActive(pathname: string, href: string) {
@@ -25,8 +26,8 @@ export function AppNav({ variant }: { variant: "bottom" | "side" }) {
       aria-label={t("menu")}
       className={cn(
         variant === "bottom"
-          ? "fixed inset-x-0 bottom-0 z-40 grid auto-cols-fr grid-flow-col border-t bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
-          : "hidden flex-col gap-1 md:flex",
+          ? "fixed inset-x-0 bottom-0 z-40 grid auto-cols-fr grid-flow-col border-t bg-card pb-[env(safe-area-inset-bottom)] md:hidden print:hidden"
+          : "hidden flex-col gap-1 md:flex print:hidden",
       )}
     >
       {ITEMS.map(({ href, key, icon: Icon }) => {
