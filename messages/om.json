@@ -5,7 +5,8 @@
   },
   "nav": {
     "home": "Jalqaba",
-    "menu": "Baafata ijoo"
+    "menu": "Baafata ijoo",
+    "students": "Barattoota"
   },
   "common": {
     "language": "Afaan",
@@ -44,11 +45,64 @@
     "schoolName": "Maqaa mana barumsaa"
   },
   "home": {
-    "welcome": "Baga nagaan dhuftan, {name}"
+    "welcome": "Baga nagaan dhuftan, {name}",
+    "studentsThisYear": "Barattoota bara kanaa",
+    "classes": "Kutaalee",
+    "startHint": "\"Barattoota\" jalatti kutaalee keessan dabaluun jalqabaa."
   },
   "roles": {
     "owner": "Abbaa qabeenyaa",
     "manager": "Hogganaa",
     "staff": "Hojjetaa"
+  },
+  "errors": {
+    "load": "Fuula kana fe'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+  },
+  "students": {
+    "title": "Barattoota",
+    "schoolYear": "Bara barnootaa {year} ALI",
+    "manageClasses": "Kutaalee",
+    "searchLabel": "Maqaa barataa, lakkoofsa barataa ykn bilbila maatiitiin barbaadaa",
+    "searchPlaceholder": "Maqaa, lakkoofsa ykn bilbila",
+    "search": "Barbaadi",
+    "class": "Kutaa",
+    "count": "{count, plural, one {Barataa #} other {Barattoota #}}",
+    "searchResults": "Bu'aa {count} \"{q}\"f",
+    "noMatch": "Barataan walsimu hin jiru. Barreeffama mirkaneeffadhaa ykn bilbila maatii yaalaa.",
+    "emptyClass": "Kutaa kana keessa barataan hin jiru. Barataa jalqabaa galmeessaa.",
+    "noClasses": "Kutaaleen hin jiran",
+    "noClassesOwner": "Dursa kutaalee dabalaa, achiis barattoota galmeessaa.",
+    "noClassesStaff": "Kutaalee akka dabaluuf waajira mana barumsaa gaafadhaa.",
+    "noParent": "Maatiin hin galmoofne",
+    "call": "{name} bilbili",
+    "addStudent": "Barataa galmeessi",
+    "addClass": "Kutaa dabali",
+    "backToRegister": "Gara galmeetti deebi'i",
+    "grade": "Sadarkaa",
+    "gradeExample": "Kutaa 1",
+    "section": "Garee",
+    "fullName": "Maqaa guutuu barataa",
+    "gender": "Saala",
+    "female": "Dubartii",
+    "male": "Dhiira",
+    "studentNo": "Lakkoofsa barataa (yoo jiraate)",
+    "parent": "Maatii ykn kunuunsaa",
+    "parentName": "Maqaa guutuu maatii",
+    "parentPhone": "Lakkoofsa bilbilaa",
+    "relation": "Firummaa",
+    "relationParent": "Maatii",
+    "relationMother": "Haadha",
+    "relationFather": "Abbaa",
+    "relationGuardian": "Kunuunsaa",
+    "relationOther": "Kan biraa",
+    "classAdded": "Kutaan dabalameera.",
+    "studentAdded": "Barataan galmaa'eera. Isa itti aanu galchaa ykn gara galmeetti deebi'aa.",
+    "errorRole": "Kana kan raawwachuu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
+    "errorClassRequired": "Sadarkaa fi garee galchaa.",
+    "errorClassDuplicate": "Kutaan kun duraan jira.",
+    "errorRequired": "Maqaa barataa, kutaa fi maqaa maatii guutaa.",
+    "errorPhone": "Lakkoofsa bilbila Itoophiyaa galchaa, fakkeenyaaf 0911 234 567.",
+    "errorStudentNoTaken": "Lakkoofsi kun kan barataa biraati.",
+    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
   }
 }

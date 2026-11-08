@@ -6,7 +6,7 @@ declare
   ua uuid := gen_random_uuid(); ub uuid := gen_random_uuid(); uc uuid := gen_random_uuid();
   ta uuid; tb uuid;
   ca uuid; cb uuid; ga uuid; sa uuid; sb uuid; ea uuid; eb uuid; pa uuid; pb uuid; ia uuid; ib uuid;
-  ref1 uuid := gen_random_uuid(); r jsonb; n int; res text := ''; msg text;
+  ref1 uuid := gen_random_uuid(); sa2 uuid; r jsonb; n int; res text := ''; msg text;
 begin
   insert into auth.users(id, aud, role, email) values
     (ua,'authenticated','authenticated','sc-rls-a@test.invalid'),
@@ -69,6 +69,16 @@ begin
   select count(*) into n from public.payments where ref_table='sc_fee_invoices' and ref_id=ia;
   res := res || 'core payment ' || case when n=1 then 'ok' else 'FAIL '||n end || '; ';
 
+  -- Staff can register a student; the register view shows them in roll order.
+  select public.sc_add_student('New Pupil','f',null,ca,2019,'New Parent','0911000002','mother') into sa2;
+  select roll_no into n from public.sc_student_register where student_id = sa2;
+  res := res || 'add student roll ' || case when n=1 then 'ok' else 'FAIL '||coalesce(n,-1) end || '; ';
+  select count(*) into n from public.sc_student_register where guardian_phone like '%000002%' and academic_year = 2019;
+  res := res || 'register search ' || case when n=1 then 'ok' else 'FAIL '||n end || '; ';
+  begin perform public.sc_add_student('Cross Pupil','m',null,cb,2019,'Cross Parent','0911000003','parent'); msg := 'ran';
+  exception when others then msg := 'denied'; end;
+  res := res || 'add student cross-tenant class ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+
   -- Tenant B sees and pays nothing of tenant A.
   perform set_config('request.jwt.claims', json_build_object('sub', ub, 'role','authenticated')::text, true);
   select count(*) into n from public.sc_fee_invoices;
@@ -79,6 +89,8 @@ begin
   res := res || 'B unpaid view ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
   begin perform public.sc_record_fee_payment(ia, 100); msg := 'ran'; exception when others then msg := sqlerrm; end;
   res := res || 'B pays A invoice ' || case when msg='invoice_not_found' then 'ok' else 'FAIL '||msg end || '; ';
+  select count(*) into n from public.sc_student_register where tenant_id = ta;
+  res := res || 'B register view ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
   update public.sc_students set full_name = 'Hacked' where id = sa;
   get diagnostics n = row_count;
   res := res || 'B update A student ' || case when n=0 then 'ok' else 'FAIL '||n end || '; ';
@@ -90,6 +102,11 @@ begin
   res := res || 'anon students ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
   begin perform public.sc_record_fee_payment(ia, 1); msg := 'ran'; exception when others then msg := 'denied'; end;
   res := res || 'anon rpc ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
+
+  begin select count(*) into n from public.sc_student_register; msg := n::text; exception when others then msg := 'denied'; end;
+  res := res || 'anon register ' || case when msg in ('denied','0') then 'ok' else 'FAIL '||msg end || '; ';
+  begin perform public.sc_add_student('Anon','m',null,ca,2019,'Anon Parent','0911000004','parent'); msg := 'ran'; exception when others then msg := 'denied'; end;
+  res := res || 'anon add student ' || case when msg='denied' then 'ok' else 'FAIL' end || '; ';
 
   raise exception 'SC_RLS_RESULT %', res;
 end $$;

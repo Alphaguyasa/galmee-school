@@ -3,15 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { BarChart3, HandCoins, Home, Package, ShoppingCart } from "lucide-react";
+import { Home, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
   { href: "/", key: "home", icon: Home },
-  { href: "/sell", key: "sell", icon: ShoppingCart },
-  { href: "/stock", key: "stock", icon: Package },
-  { href: "/customers", key: "customers", icon: HandCoins },
-  { href: "/reports", key: "reports", icon: BarChart3 },
+  { href: "/students", key: "students", icon: Users },
 ] as const;
 
 function isActive(pathname: string, href: string) {
@@ -28,7 +25,7 @@ export function AppNav({ variant }: { variant: "bottom" | "side" }) {
       aria-label={t("menu")}
       className={cn(
         variant === "bottom"
-          ? "fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
+          ? "fixed inset-x-0 bottom-0 z-40 grid auto-cols-fr grid-flow-col border-t bg-card pb-[env(safe-area-inset-bottom)] md:hidden"
           : "hidden flex-col gap-1 md:flex",
       )}
     >

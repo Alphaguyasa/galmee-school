@@ -5,7 +5,8 @@
   },
   "nav": {
     "home": "መነሻ",
-    "menu": "ዋና ማውጫ"
+    "menu": "ዋና ማውጫ",
+    "students": "ተማሪዎች"
   },
   "common": {
     "language": "ቋንቋ",
@@ -44,11 +45,64 @@
     "schoolName": "የትምህርት ቤቱ ስም"
   },
   "home": {
-    "welcome": "እንኳን ደህና መጡ፣ {name}"
+    "welcome": "እንኳን ደህና መጡ፣ {name}",
+    "studentsThisYear": "የዚህ ዓመት ተማሪዎች",
+    "classes": "ክፍሎች",
+    "startHint": "በ\"ተማሪዎች\" ስር ክፍሎችዎን በመጨመር ይጀምሩ።"
   },
   "roles": {
     "owner": "ባለቤት",
     "manager": "ሥራ አስኪያጅ",
     "staff": "ሠራተኛ"
+  },
+  "errors": {
+    "load": "ይህን ገጽ መጫን አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ።"
+  },
+  "students": {
+    "title": "ተማሪዎች",
+    "schoolYear": "የትምህርት ዘመን {year} ዓ.ም.",
+    "manageClasses": "ክፍሎች",
+    "searchLabel": "በተማሪ ስም፣ በተማሪ ቁጥር ወይም በወላጅ ስልክ ይፈልጉ",
+    "searchPlaceholder": "ስም፣ ቁጥር ወይም ስልክ",
+    "search": "ፈልግ",
+    "class": "ክፍል",
+    "count": "{count} ተማሪዎች",
+    "searchResults": "ለ\"{q}\" {count} ውጤቶች",
+    "noMatch": "የሚዛመድ ተማሪ የለም። ፊደሉን ያረጋግጡ ወይም የወላጅ ስልክ ይሞክሩ።",
+    "emptyClass": "በዚህ ክፍል ገና ተማሪ የለም። የመጀመሪያውን ተማሪ ይመዝግቡ።",
+    "noClasses": "ገና ክፍሎች የሉም",
+    "noClassesOwner": "መጀመሪያ ክፍሎችዎን ይጨምሩ፣ ከዚያ ተማሪዎችን ይመዝግቡ።",
+    "noClassesStaff": "ክፍሎቹን እንዲጨምር የትምህርት ቤቱን ቢሮ ይጠይቁ።",
+    "noParent": "ወላጅ አልተመዘገበም",
+    "call": "ወደ {name} ደውል",
+    "addStudent": "ተማሪ መዝግብ",
+    "addClass": "ክፍል ጨምር",
+    "backToRegister": "ወደ መዝገቡ ተመለስ",
+    "grade": "ክፍል ደረጃ",
+    "gradeExample": "1ኛ ክፍል",
+    "section": "ሴክሽን",
+    "fullName": "የተማሪው ሙሉ ስም",
+    "gender": "ጾታ",
+    "female": "ሴት",
+    "male": "ወንድ",
+    "studentNo": "የተማሪ ቁጥር (ካለ)",
+    "parent": "ወላጅ ወይም አሳዳጊ",
+    "parentName": "የወላጅ ሙሉ ስም",
+    "parentPhone": "ስልክ ቁጥር",
+    "relation": "ዝምድና",
+    "relationParent": "ወላጅ",
+    "relationMother": "እናት",
+    "relationFather": "አባት",
+    "relationGuardian": "አሳዳጊ",
+    "relationOther": "ሌላ",
+    "classAdded": "ክፍሉ ተጨምሯል።",
+    "studentAdded": "ተማሪው ተመዝግቧል። ቀጣዩን ያስገቡ ወይም ወደ መዝገቡ ይመለሱ።",
+    "errorRole": "ይህን ማድረግ የሚችሉት ባለቤቱ ወይም ሥራ አስኪያጁ ብቻ ናቸው።",
+    "errorClassRequired": "የክፍል ደረጃውን እና ሴክሽኑን ያስገቡ።",
+    "errorClassDuplicate": "ይህ ክፍል አስቀድሞ አለ።",
+    "errorRequired": "የተማሪውን ስም፣ ክፍል እና የወላጅ ስም ይሙሉ።",
+    "errorPhone": "የኢትዮጵያ ስልክ ቁጥር ያስገቡ፤ ለምሳሌ 0911 234 567።",
+    "errorStudentNoTaken": "ይህ ቁጥር የሌላ ተማሪ ነው።",
+    "errorSave": "ማስቀመጥ አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ።"
   }
 }

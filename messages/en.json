@@ -5,7 +5,8 @@
   },
   "nav": {
     "home": "Home",
-    "menu": "Main menu"
+    "menu": "Main menu",
+    "students": "Students"
   },
   "common": {
     "language": "Language",
@@ -44,11 +45,64 @@
     "schoolName": "School name"
   },
   "home": {
-    "welcome": "Welcome, {name}"
+    "welcome": "Welcome, {name}",
+    "studentsThisYear": "Students this year",
+    "classes": "Classes",
+    "startHint": "Start by adding your classes under Students."
   },
   "roles": {
     "owner": "Owner",
     "manager": "Manager",
     "staff": "Staff"
+  },
+  "errors": {
+    "load": "Could not load this page. Check your connection and try again."
+  },
+  "students": {
+    "title": "Students",
+    "schoolYear": "School year {year} E.C.",
+    "manageClasses": "Classes",
+    "searchLabel": "Search by student name, student number or parent phone",
+    "searchPlaceholder": "Name, number or phone",
+    "search": "Search",
+    "class": "Class",
+    "count": "{count, plural, one {# student} other {# students}}",
+    "searchResults": "{count, plural, one {# result} other {# results}} for \"{q}\"",
+    "noMatch": "No student matches that search. Check the spelling or try the parent's phone.",
+    "emptyClass": "No students in this class yet. Add the first student.",
+    "noClasses": "No classes yet",
+    "noClassesOwner": "Add your classes first, then register students into them.",
+    "noClassesStaff": "Ask the school office to add the classes.",
+    "noParent": "No parent recorded",
+    "call": "Call {name}",
+    "addStudent": "Add student",
+    "addClass": "Add class",
+    "backToRegister": "Back to the register",
+    "grade": "Grade",
+    "gradeExample": "Grade 1",
+    "section": "Section",
+    "fullName": "Student full name",
+    "gender": "Gender",
+    "female": "Female",
+    "male": "Male",
+    "studentNo": "Student number (optional)",
+    "parent": "Parent or guardian",
+    "parentName": "Parent full name",
+    "parentPhone": "Phone number",
+    "relation": "Relation",
+    "relationParent": "Parent",
+    "relationMother": "Mother",
+    "relationFather": "Father",
+    "relationGuardian": "Guardian",
+    "relationOther": "Other",
+    "classAdded": "Class added.",
+    "studentAdded": "Student added. Enter the next one, or go back to the register.",
+    "errorRole": "Only the owner or a manager can do this.",
+    "errorClassRequired": "Enter the grade and the section.",
+    "errorClassDuplicate": "That class already exists.",
+    "errorRequired": "Fill in the student name, class and parent name.",
+    "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567.",
+    "errorStudentNoTaken": "Another student already has that number.",
+    "errorSave": "Could not save. Check your connection and try again."
   }
 }

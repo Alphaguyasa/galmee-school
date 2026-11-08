@@ -27,3 +27,33 @@ export const onboardingSchema = z.object({
 export function formToObject(formData: FormData, keys: readonly string[]) {
   return Object.fromEntries(keys.map((k) => [k, formData.get(k) ?? ""]));
 }
+
+const optionalText = (max: number) => z.string().trim().max(max);
+
+export const classSchema = z.object({
+  grade: z.string().trim().min(1).max(30),
+  section: z.string().trim().min(1).max(10),
+});
+
+export const RELATIONS = ["parent", "mother", "father", "guardian", "other"] as const;
+
+export const studentSchema = z.object({
+  fullName: z.string().trim().min(2).max(120),
+  gender: z.enum(["m", "f"]),
+  studentNo: optionalText(30),
+  classId: z.uuid(),
+  guardianName: z.string().trim().min(2).max(120),
+  guardianPhone: phoneSchema,
+  relation: z.enum(RELATIONS),
+});
+
+/** Query string of the register. Bad values fall back to "not set" instead of erroring. */
+export const registerQuerySchema = z.object({
+  class: z.uuid().optional().catch(undefined),
+  q: z.string().trim().max(60).optional().catch(undefined),
+});
+
+/** Removes the characters that have meaning in a PostgREST filter value. */
+export function cleanSearchTerm(q: string): string {
+  return q.replace(/[,()"\\*%:]/g, " ").replace(/\s+/g, " ").trim();
+}

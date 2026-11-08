@@ -1094,6 +1094,27 @@ export type Database = {
       }
     }
     Views: {
+      sc_student_register: {
+        Row: {
+          tenant_id: string
+          enrollment_id: string
+          academic_year: number
+          roll_no: number | null
+          class_id: string
+          grade: string
+          section: string
+          sort_order: number
+          student_id: string
+          full_name: string
+          student_no: string | null
+          gender: string | null
+          status: string
+          guardian_id: string | null
+          guardian_name: string | null
+          guardian_phone: string | null
+        }
+        Relationships: []
+      }
       sc_unpaid_by_class: {
         Row: { tenant_id: string; class_id: string; grade: string; section: string; sort_order: number; period_key: string; students: number; unpaid_students: number; owed: number }
         Relationships: []
@@ -1145,6 +1166,19 @@ export type Database = {
       }
     }
     Functions: {
+      sc_add_student: {
+        Args: {
+          p_full_name: string
+          p_gender: string | null
+          p_student_no: string | null
+          p_class: string
+          p_year: number
+          p_guardian_name: string
+          p_guardian_phone: string
+          p_relation?: string
+        }
+        Returns: string
+      }
       sc_generate_invoices: {
         Args: { p_academic_year: number; p_period: string; p_period_key: string; p_due?: string }
         Returns: number
