@@ -34,7 +34,7 @@ export function StudentForm({
         <Label htmlFor="fullName">{t("fullName")}</Label>
         <Input id="fullName" name="fullName" autoComplete="off" maxLength={120} required />
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 items-end gap-3">
         <div className="grid gap-2">
           <Label htmlFor="gender">{t("gender")}</Label>
           <Select id="gender" name="gender" required>
@@ -53,7 +53,7 @@ export function StudentForm({
           <Label htmlFor="guardianName">{t("parentName")}</Label>
           <Input id="guardianName" name="guardianName" autoComplete="off" maxLength={120} required />
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 items-end gap-3">
           <div className="grid gap-2">
             <Label htmlFor="guardianPhone">{t("parentPhone")}</Label>
             <Input id="guardianPhone" name="guardianPhone" type="tel" autoComplete="off" required />

@@ -30,12 +30,20 @@ export default async function StudentsPage({
           <h1 className="text-2xl font-semibold">{t("title")}</h1>
           <p className="num text-sm text-muted-foreground">{t("schoolYear", { year })}</p>
         </div>
-        {canManage ? (
-          <Link href="/students/classes" className={buttonVariants({ variant: "outline" })}>
-            <Settings2 aria-hidden />
-            {t("manageClasses")}
-          </Link>
-        ) : null}
+        <div className="flex gap-2">
+          {classes.length > 0 ? (
+            <Link href={newHref} className={cn(buttonVariants(), "hidden md:inline-flex")}>
+              <UserPlus aria-hidden />
+              {t("addStudent")}
+            </Link>
+          ) : null}
+          {canManage ? (
+            <Link href="/students/classes" className={buttonVariants({ variant: "outline" })}>
+              <Settings2 aria-hidden />
+              {t("manageClasses")}
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       {classes.length === 0 ? (
@@ -115,8 +123,8 @@ export default async function StudentsPage({
             </ul>
           )}
 
-          <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] md:bottom-4">
-            <Link href={newHref} className={cn(buttonVariants({ size: "lg" }), "w-full md:w-auto")}>
+          <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] md:hidden">
+            <Link href={newHref} className={cn(buttonVariants({ size: "lg" }), "w-full")}>
               <UserPlus aria-hidden />
               {t("addStudent")}
             </Link>
