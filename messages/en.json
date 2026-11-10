@@ -8,7 +8,8 @@
     "menu": "Main menu",
     "students": "Students",
     "fees": "Fees",
-    "attendance": "Attendance"
+    "attendance": "Attendance",
+    "marks": "Marks"
   },
   "common": {
     "language": "Language",
@@ -183,6 +184,34 @@
     "saved": "Attendance saved.",
     "errorRole": "Only the owner or a manager can do this.",
     "errorDay": "Choose today or a past day.",
+    "errorSave": "Could not save. Check your connection and try again."
+  },
+  "marks": {
+    "title": "Marks",
+    "classes": "Classes",
+    "term": "Term",
+    "termN": "Term {n}",
+    "subjects": "Subjects",
+    "backToMarks": "Back to marks",
+    "noClasses": "Add your classes first, under Students.",
+    "emptyClass": "No students in this class yet.",
+    "noSubjects": "No subjects yet. Add the first one below.",
+    "noSubjectsForGrade": "No subjects for this grade yet. Add them under Subjects.",
+    "noSubjectsAskOffice": "No subjects for this grade yet. Ask the office to add them.",
+    "entered": "{entered} of {total} marks entered",
+    "outOf": "Out of {max}",
+    "subjectName": "Subject name",
+    "subjectNameExample": "e.g. Mathematics",
+    "subjectGrade": "Grade",
+    "allGrades": "All grades",
+    "maxMark": "Out of",
+    "addSubject": "Add subject",
+    "subjectAdded": "Subject added.",
+    "save": "Save marks",
+    "saved": "Marks saved.",
+    "errorRole": "Only the owner or a manager can do this.",
+    "errorSubject": "Check the subject name and the maximum mark.",
+    "errorMark": "Each mark must be a number between 0 and the maximum.",
     "errorSave": "Could not save. Check your connection and try again."
   }
 }

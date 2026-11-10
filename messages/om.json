@@ -8,7 +8,8 @@
     "menu": "Baafata ijoo",
     "students": "Barattoota",
     "fees": "Kaffaltii",
-    "attendance": "Argamuu"
+    "attendance": "Argamuu",
+    "marks": "Qabxii"
   },
   "common": {
     "language": "Afaan",
@@ -184,5 +185,33 @@
     "errorRole": "Kana kan raawwachuu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorDay": "Har'a ykn guyyaa darbe filadhaa.",
     "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+  },
+  "marks": {
+    "title": "Qabxii",
+    "classes": "Kutaalee",
+    "term": "Semisteera",
+    "termN": "Sem. {n}",
+    "subjects": "Gosa barnootaa",
+    "backToMarks": "Gara qabxiitti deebi'i",
+    "noClasses": "Jalqaba kutaalee kee Barattoota jalatti dabali.",
+    "emptyClass": "Kutaa kana keessa barataan hin jiru.",
+    "noSubjects": "Gosni barnootaa hin jiru. Isa jalqabaa armaan gaditti dabali.",
+    "noSubjectsForGrade": "Kutaa kanaaf gosni barnootaa hin jiru. Gosa barnootaa jalatti dabali.",
+    "noSubjectsAskOffice": "Kutaa kanaaf gosni barnootaa hin jiru. Waajjirri akka dabalu gaafadhu.",
+    "entered": "Qabxii {total} keessaa {entered} galmeeffame",
+    "outOf": "{max} keessaa",
+    "subjectName": "Maqaa gosa barnootaa",
+    "subjectNameExample": "fkn. Herrega",
+    "subjectGrade": "Kutaa",
+    "allGrades": "Kutaalee hunda",
+    "maxMark": "Keessaa",
+    "addSubject": "Gosa barnootaa dabali",
+    "subjectAdded": "Gosni barnootaa dabalameera.",
+    "save": "Qabxii olkaa'i",
+    "saved": "Qabxiin olkaa'ameera.",
+    "errorRole": "Kana kan gochuu danda'u abbaa qabeenyaa ykn hoggantaa qofa.",
+    "errorSubject": "Maqaa gosa barnootaa fi qabxii olaanaa mirkaneessi.",
+    "errorMark": "Qabxiin hundi lakkoofsa 0 fi olaanaa gidduu jiru ta'uu qaba.",
+    "errorSave": "Olkaa'uun hin danda'amne. Walqunnamtii kee mirkaneessii irra deebi'ii yaali."
   }
 }

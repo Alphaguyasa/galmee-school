@@ -121,3 +121,33 @@ export const attendanceQuerySchema = z.object({
   class: z.uuid().optional().catch(undefined),
   day: attendanceDaySchema.optional().catch(undefined),
 });
+
+export const TERMS = [1, 2, 3, 4] as const;
+
+const markSchema = z
+  .string()
+  .trim()
+  .regex(/^\d{1,4}(\.\d{1,2})?$/)
+  .transform(Number);
+
+export const subjectSchema = z.object({
+  name: z.string().trim().min(2).max(80),
+  grade: z.string().trim().max(30),
+  maxMark: markSchema.refine((n) => n > 0 && n <= 1000),
+});
+
+export const marksFormSchema = z.object({
+  subjectId: z.uuid(),
+  term: z.coerce.number().int().min(1).max(4),
+});
+
+/** `mark_<enrollment uuid>` fields of the marks form. Empty fields are skipped, not saved as zero. */
+export const marksEntriesSchema = z
+  .array(z.object({ enrollmentId: z.uuid(), mark: markSchema }))
+  .max(300);
+
+export const marksQuerySchema = z.object({
+  class: z.uuid().optional().catch(undefined),
+  subject: z.uuid().optional().catch(undefined),
+  term: z.coerce.number().int().min(1).max(4).optional().catch(undefined),
+});

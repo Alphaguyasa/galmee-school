@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { CalendarCheck, HandCoins, Home, Users } from "lucide-react";
+import { CalendarCheck, HandCoins, Home, NotebookPen, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/students", key: "students", icon: Users },
   { href: "/fees", key: "fees", icon: HandCoins },
   { href: "/attendance", key: "attendance", icon: CalendarCheck },
+  { href: "/marks", key: "marks", icon: NotebookPen },
 ] as const;
 
 function isActive(pathname: string, href: string) {
