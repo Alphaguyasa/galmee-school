@@ -212,6 +212,17 @@
     "errorRole": "Kana kan gochuu danda'u abbaa qabeenyaa ykn hoggantaa qofa.",
     "errorSubject": "Maqaa gosa barnootaa fi qabxii olaanaa mirkaneessi.",
     "errorMark": "Qabxiin hundi lakkoofsa 0 fi olaanaa gidduu jiru ta'uu qaba.",
-    "errorSave": "Olkaa'uun hin danda'amne. Walqunnamtii kee mirkaneessii irra deebi'ii yaali."
+    "errorSave": "Olkaa'uun hin danda'amne. Walqunnamtii kee mirkaneessii irra deebi'ii yaali.",
+    "reportCards": "Kaardii qabxii",
+    "printCards": "Kaardii qabxii maxxansi",
+    "nothingToPrint": "Jalqaba kutaa kanaaf gosa barnootaa fi barattoota dabali.",
+    "subject": "Gosa barnootaa",
+    "mark": "Qabxii",
+    "total": "Ida'ama",
+    "average": "Giddugaleessa",
+    "rank": "Sadarkaa",
+    "rankOf": "{size} keessaa {rank}ffaa",
+    "teacherSignature": "Barsiisaa kutaa",
+    "parentSignature": "Maatii ykn guddisaa"
   }
 }

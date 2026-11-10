@@ -212,6 +212,17 @@
     "errorRole": "Only the owner or a manager can do this.",
     "errorSubject": "Check the subject name and the maximum mark.",
     "errorMark": "Each mark must be a number between 0 and the maximum.",
-    "errorSave": "Could not save. Check your connection and try again."
+    "errorSave": "Could not save. Check your connection and try again.",
+    "reportCards": "Report cards",
+    "printCards": "Print report cards",
+    "nothingToPrint": "Add subjects and students to this class first.",
+    "subject": "Subject",
+    "mark": "Mark",
+    "total": "Total",
+    "average": "Average",
+    "rank": "Rank",
+    "rankOf": "{rank} of {size}",
+    "teacherSignature": "Homeroom teacher",
+    "parentSignature": "Parent or guardian"
   }
 }

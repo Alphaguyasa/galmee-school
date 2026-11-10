@@ -87,9 +87,19 @@ export default async function MarksPage({
                 ))}
               </nav>
 
-              <p aria-live="polite" className="num text-sm font-semibold">
-                {t("entered", { entered, total: register.length })}
-              </p>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p aria-live="polite" className="num text-sm font-semibold">
+                  {t("entered", { entered, total: register.length })}
+                </p>
+                {register.length > 0 ? (
+                  <Link
+                    href={`/marks/report-cards?class=${selected.id}&term=${term}`}
+                    className="flex h-12 items-center text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    {t("reportCards")}
+                  </Link>
+                ) : null}
+              </div>
 
               {register.length === 0 ? (
                 <p className="border-l-2 border-margin py-3 pl-4 text-muted-foreground">{t("emptyClass")}</p>

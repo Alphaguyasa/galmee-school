@@ -58,3 +58,38 @@ export async function saveMarks(
   );
   return { ok: !error };
 }
+
+export type TermRankDTO = { total: number; average: number; rank: number; classSize: number };
+
+/** Every mark of a class for one term: enrolment → subject → mark. */
+export async function listClassTermMarks(term: number, enrollmentIds: string[]): Promise<Record<string, Record<string, number>>> {
+  if (enrollmentIds.length === 0) return {};
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_grades")
+    .select("enrollment_id, subject_id, mark")
+    .eq("term", term)
+    .in("enrollment_id", enrollmentIds);
+  if (error) throw new Error("Could not load marks");
+  const out: Record<string, Record<string, number>> = {};
+  for (const r of data) (out[r.enrollment_id] ??= {})[r.subject_id] = Number(r.mark);
+  return out;
+}
+
+/** Total, average and rank in class for one term (computed by the `sc_class_term_ranks` view). */
+export async function listClassTermRanks(classId: string, year: number, term: number): Promise<Record<string, TermRankDTO>> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_class_term_ranks")
+    .select("enrollment_id, total, average, class_rank, class_size")
+    .eq("class_id", classId)
+    .eq("academic_year", year)
+    .eq("term", term);
+  if (error) throw new Error("Could not load ranks");
+  return Object.fromEntries(
+    data.map((r) => [
+      r.enrollment_id,
+      { total: Number(r.total), average: Number(r.average), rank: Number(r.class_rank), classSize: Number(r.class_size) },
+    ]),
+  );
+}

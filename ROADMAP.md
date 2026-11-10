@@ -26,7 +26,7 @@
 - [x] Fee plans per grade
 - [x] Fee collection with receipt
 - [x] Unpaid fees by class
-- [ ] Grade entry and report card print
+- [x] Grade entry and report card print
 - [x] Attendance
 - [x] Parent contact list
 - [x] Migration: sc_students
