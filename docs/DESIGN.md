@@ -2,6 +2,13 @@
 
 Written per the frontend guidelines. Change this file first, then the code.
 
+> School now uses the shared **Galmee design system**. Tokens live in
+> `src/app/globals.css` (only `--trade`, the exercise-book blue `#1D3F72`, is
+> school-specific), shared components in `src/components/galmee/`. The colour
+> and type tables below are superseded by those tokens and the Atkinson
+> Hyperlegible / Noto Sans Ethiopic pair; the brief, the red margin line (the
+> one bold thing) and the screen wireframes still apply.
+
 ## Brief
 
 - **Subject:** the school office of a KG + primary school in Shashamane. A clerk with a phone, a stack of exercise books, a queue of parents at the window at the start of the month.
