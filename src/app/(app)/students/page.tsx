@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Contact, Phone, Search, Settings2, UserPlus } from "lucide-react";
+import { Contact, Phone, School, Search, Settings2, UserPlus, Users } from "lucide-react";
+import { EmptyState } from "@/components/galmee/empty-state";
+import { ListRow, ListSheet } from "@/components/galmee/list-row";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { currentSchoolYear } from "@/lib/school-year";
@@ -27,7 +29,7 @@ export default async function StudentsPage({
     <div className="grid gap-4">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="grid gap-1">
-          <h1 className="text-2xl font-semibold">{t("title")}</h1>
+          <h1 className="text-[1.5625rem] leading-tight font-bold">{t("title")}</h1>
           <p className="num text-sm text-muted-foreground">{t("schoolYear", { year })}</p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -51,15 +53,17 @@ export default async function StudentsPage({
       </div>
 
       {classes.length === 0 ? (
-        <section className="grid gap-3 border-l-2 border-margin py-2 pl-4">
-          <h2 className="font-semibold">{t("noClasses")}</h2>
-          <p className="text-muted-foreground">{canManage ? t("noClassesOwner") : t("noClassesStaff")}</p>
-          {canManage ? (
-            <Link href="/students/classes" className={cn(buttonVariants({ size: "lg" }), "justify-self-start")}>
-              {t("addClass")}
-            </Link>
-          ) : null}
-        </section>
+        <EmptyState
+          icon={School}
+          message={`${t("noClasses")} ${canManage ? t("noClassesOwner") : t("noClassesStaff")}`}
+          action={
+            canManage ? (
+              <Link href="/students/classes" className={buttonVariants({ size: "lg" })}>
+                {t("addClass")}
+              </Link>
+            ) : undefined
+          }
+        />
       ) : (
         <>
           <form action="/students" role="search" className="flex gap-2">
@@ -96,35 +100,39 @@ export default async function StudentsPage({
           </p>
 
           {rows.length === 0 ? (
-            <p className="border-l-2 border-margin py-3 pl-4 text-muted-foreground">
-              {q ? t("noMatch") : t("emptyClass")}
-            </p>
+            <EmptyState icon={q ? Search : Users} message={q ? t("noMatch") : t("emptyClass")} />
           ) : (
-            <ul className="border-t">
+            <ListSheet>
               {rows.map((r) => (
-                <li key={r.enrollmentId} className="grid min-h-16 grid-cols-[2.75rem_1fr_auto] items-stretch border-b">
-                  <span className="num flex items-center justify-center border-r-2 border-margin text-sm text-muted-foreground">
-                    {r.rollNo ?? ""}
-                  </span>
-                  <div className="grid min-w-0 content-center py-2 pl-3">
-                    <span className="truncate font-semibold">{r.fullName}</span>
-                    <span className="truncate text-sm text-muted-foreground">
+                <ListRow
+                  key={r.enrollmentId}
+                  className="items-center"
+                  mark={
+                    <span className="num flex h-10 w-8 items-center justify-center border-r-2 border-margin pr-2 text-sm text-muted-foreground">
+                      {r.rollNo ?? ""}
+                    </span>
+                  }
+                  title={r.fullName}
+                  sub={
+                    <span className="truncate">
                       {q ? `${r.classLabel} · ` : ""}
                       {r.guardianName ?? t("noParent")}
                     </span>
-                  </div>
-                  {r.guardianPhone ? (
-                    <a
-                      href={`tel:${r.guardianPhone}`}
-                      aria-label={t("call", { name: r.guardianName ?? r.fullName })}
-                      className="flex w-12 items-center justify-center text-primary"
-                    >
-                      <Phone className="size-5" aria-hidden />
-                    </a>
-                  ) : null}
-                </li>
+                  }
+                  right={
+                    r.guardianPhone ? (
+                      <a
+                        href={`tel:${r.guardianPhone}`}
+                        aria-label={t("call", { name: r.guardianName ?? r.fullName })}
+                        className="-my-2 flex size-12 items-center justify-center rounded-md text-primary active:bg-band"
+                      >
+                        <Phone className="size-5" aria-hidden />
+                      </a>
+                    ) : null
+                  }
+                />
               ))}
-            </ul>
+            </ListSheet>
           )}
 
           <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] md:hidden">
