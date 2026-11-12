@@ -82,7 +82,9 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, child
         <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 pt-4 pb-24 md:p-8">{children}</main>
       </div>
 
-      <AppNav variant="bottom" />
+      <div className="print:hidden">
+        <AppNav variant="bottom" />
+      </div>
     </div>
   );
 }

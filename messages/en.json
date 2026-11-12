@@ -168,7 +168,10 @@
     "errorPayment": "Could not record the payment. Check your connection and try again; it will not be counted twice.",
     "errorSave": "Could not save. Check your connection and try again.",
     "owedLabel": "Still owed this period",
-    "emptyAction": "Create the invoices below with one tap."
+    "emptyAction": "Create the invoices below with one tap.",
+    "receiptPaid": "Paid",
+    "receiptOwedAfter": "Still owed",
+    "receiptFooter": "Thank you. Keep this receipt."
   },
   "attendance": {
     "title": "Attendance",

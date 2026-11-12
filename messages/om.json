@@ -168,7 +168,10 @@
     "errorPayment": "Kaffaltii galmeessuun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa; al lama hin lakkaa'amu.",
     "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa.",
     "owedLabel": "Yeroo kanatti kan hin kaffalamne",
-    "emptyAction": "Gaaffii kaffaltii gadii tuqaa tokkoon uumi."
+    "emptyAction": "Gaaffii kaffaltii gadii tuqaa tokkoon uumi.",
+    "receiptPaid": "Kan kaffalame",
+    "receiptOwedAfter": "Kan hafe",
+    "receiptFooter": "Galatoomaa. Nagahee kana kuusaa."
   },
   "attendance": {
     "title": "Argamuu barattootaa",
