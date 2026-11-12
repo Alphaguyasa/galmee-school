@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ChevronRight, ListChecks } from "lucide-react";
+import { ListChecks, ReceiptText } from "lucide-react";
 import { GenerateInvoicesForm } from "@/components/fee-forms";
 import { FeeStatusMark } from "@/components/fee-status";
+import { EmptyState } from "@/components/galmee/empty-state";
+import { ListRow, ListSheet } from "@/components/galmee/list-row";
+import { MoneySummaryCard } from "@/components/galmee/money-summary-card";
 import { buttonVariants } from "@/components/ui/button";
 import type { Locale } from "@/i18n/config";
 import { currentPeriodKey, periodLabel, periodOptions } from "@/lib/fee-period";
@@ -38,7 +41,7 @@ export default async function FeesPage({
   return (
     <div className="grid gap-4">
       <div className="flex items-start justify-between gap-2">
-        <h1 className="text-2xl font-semibold">{t("title")}</h1>
+        <h1 className="text-[1.5625rem] leading-tight font-bold">{t("title")}</h1>
         {canManage ? (
           <Link href="/fees/plans" className={buttonVariants({ variant: "outline" })}>
             <ListChecks aria-hidden />
@@ -70,40 +73,38 @@ export default async function FeesPage({
       </nav>
 
       {rows.length > 0 ? (
-        <div className="grid gap-1 border-l-2 border-margin py-1 pl-4">
-          <p className="num text-3xl font-bold">{formatBirr(owed, locale)}</p>
-          <p className="num">{t("unpaidSummary", { unpaid, students })}</p>
-        </div>
-      ) : (
-        <p className="border-l-2 border-margin py-3 pl-4 text-muted-foreground">
-          {t("noInvoices", { period: periodLabel(period, locale, term) })}
-        </p>
-      )}
-
-      {rows.length > 0 ? (
-        <ul className="border-t">
-          {rows.map((r) => (
-            <li key={r.classId} className="border-b">
-              <Link
+        <>
+          <MoneySummaryCard
+            tone={owed > 0 ? "owed" : "in"}
+            label={t("owedLabel")}
+            figure={formatBirr(owed, locale)}
+            sub={t("unpaidSummary", { unpaid, students })}
+            className="border-l-4 border-margin"
+          />
+          <ListSheet>
+            {rows.map((r) => (
+              <ListRow
+                key={r.classId}
                 href={`/fees/class/${r.classId}?period=${period}`}
-                className="grid min-h-16 grid-cols-[2.75rem_1fr_auto] items-stretch hover:bg-accent/60"
-              >
-                <FeeStatusMark status={r.unpaidStudents === 0 ? "paid" : "unpaid"} />
-                <span className="grid content-center py-2 pl-3">
-                  <span className="font-semibold">{r.classLabel}</span>
-                  <span className="num text-sm text-muted-foreground">
+                mark={<FeeStatusMark status={r.unpaidStudents === 0 ? "paid" : "unpaid"} />}
+                title={r.classLabel}
+                sub={
+                  <span className="num">
                     {r.unpaidStudents === 0 ? t("allPaid") : t("classUnpaid", { count: r.unpaidStudents, students: r.students })}
                   </span>
-                </span>
-                <span className="num flex items-center gap-1 pr-2 text-sm font-semibold">
-                  {r.owed > 0 ? formatBirr(r.owed, locale) : null}
-                  <ChevronRight className="size-5 text-muted-foreground" aria-hidden />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+                }
+                right={r.owed > 0 ? <span className="num font-semibold text-owed">{formatBirr(r.owed, locale)}</span> : null}
+              />
+            ))}
+          </ListSheet>
+        </>
+      ) : (
+        <EmptyState
+          icon={ReceiptText}
+          message={t("noInvoices", { period: periodLabel(period, locale, term) })}
+          action={canManage ? <p className="text-sm text-muted-foreground">{t("emptyAction")}</p> : undefined}
+        />
+      )}
 
       {canManage ? (
         <section className="border-t pt-4">

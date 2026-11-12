@@ -166,7 +166,9 @@
     "errorAmount": "Hanga zeeroo ol galchaa, fakkeenyaaf 1500.",
     "errorOverpayment": "Kun hanga hafe caala.",
     "errorPayment": "Kaffaltii galmeessuun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa; al lama hin lakkaa'amu.",
-    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa.",
+    "owedLabel": "Yeroo kanatti kan hin kaffalamne",
+    "emptyAction": "Gaaffii kaffaltii gadii tuqaa tokkoon uumi."
   },
   "attendance": {
     "title": "Argamuu barattootaa",
