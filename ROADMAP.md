@@ -45,7 +45,7 @@
 
 - [x] Thermal receipt layout (Amharic) for fee receipts
 - [x] Print + reprint from the receipt screen
-- [ ] Payment-received SMS row queued by `sc_record_fee_payment`
+- [x] Payment-received SMS row queued by `sc_record_fee_payment`
 
 ## M-after: Tier 2 and 3
 
