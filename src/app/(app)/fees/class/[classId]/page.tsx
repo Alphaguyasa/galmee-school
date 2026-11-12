@@ -58,20 +58,16 @@ export default async function ClassFeesPage({
                 </span>
                 <span className="num flex items-center gap-1 pr-2 text-sm font-semibold">
                   {r.status === "paid" ? null : formatBirr(r.remaining, locale)}
-                  {r.status === "paid" ? null : <ChevronRight className="size-5 text-muted-foreground" aria-hidden />}
+                  <ChevronRight className="size-5 text-muted-foreground" aria-hidden />
                 </span>
               </>
             );
             const rowClass = "grid min-h-16 grid-cols-[2.75rem_1fr_auto] items-stretch";
             return (
               <li key={r.invoiceId} className="border-b">
-                {r.status === "paid" ? (
-                  <div className={rowClass}>{body}</div>
-                ) : (
-                  <Link href={`/fees/pay/${r.invoiceId}`} className={`${rowClass} hover:bg-accent/60`}>
-                    {body}
-                  </Link>
-                )}
+                <Link href={`/fees/pay/${r.invoiceId}`} className={`${rowClass} hover:bg-accent/60`}>
+                  {body}
+                </Link>
               </li>
             );
           })}

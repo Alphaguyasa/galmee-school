@@ -171,7 +171,10 @@
     "emptyAction": "ከታች ባለው አንድ ንክኪ ደረሰኞችን ይፍጠሩ።",
     "receiptPaid": "የተከፈለ",
     "receiptOwedAfter": "ቀሪ ዕዳ",
-    "receiptFooter": "እናመሰግናለን። ይህን ደረሰኝ ያስቀምጡ።"
+    "receiptFooter": "እናመሰግናለን። ይህን ደረሰኝ ያስቀምጡ።",
+    "receiptsHeading": "የዚህ ክፍያ ደረሰኞች",
+    "reprint": "እንደገና አትም",
+    "backToInvoice": "ወደዚህ ክፍያ ተመለስ"
   },
   "attendance": {
     "title": "የተማሪዎች መገኘት",

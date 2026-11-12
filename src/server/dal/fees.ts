@@ -1,4 +1,5 @@
 import "server-only";
+import { sumMoney } from "@/lib/money";
 import { createClient } from "@/lib/supabase/server";
 
 export type FeePlanDTO = { id: string; name: string; grade: string | null; period: string; amount: number };
@@ -30,6 +31,8 @@ export type ReceiptDTO = {
   classLabel: string;
   description: string;
   periodKey: string;
+  invoiceId: string;
+  /** Still owed on the invoice right after this payment. */
   remaining: number;
 };
 
@@ -162,24 +165,47 @@ export async function recordPayment(input: {
   return { ok: true, receiptId: (data as { receipt_id: string }).receipt_id };
 }
 
+export type InvoiceReceiptDTO = { receiptId: string; receiptNo: number; amount: number; createdAt: string };
+
+/** Every receipt issued against one invoice, oldest first (for reprints). */
+export async function listInvoiceReceipts(invoiceId: string): Promise<InvoiceReceiptDTO[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_receipt_details")
+    .select("receipt_id, receipt_no, amount, created_at")
+    .eq("invoice_id", invoiceId)
+    .order("receipt_no");
+  if (error) throw new Error("Could not load the receipts");
+  return data.map((r) => ({
+    receiptId: r.receipt_id!,
+    receiptNo: r.receipt_no!,
+    amount: Number(r.amount),
+    createdAt: r.created_at!,
+  }));
+}
+
 export async function getReceipt(receiptId: string): Promise<ReceiptDTO | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("sc_receipt_details")
-    .select("receipt_no, amount, method, created_at, full_name, grade, section, description, period_key, remaining")
+    .select("receipt_no, amount, method, created_at, full_name, grade, section, description, period_key, invoice_id, invoice_amount")
     .eq("receipt_id", receiptId)
     .maybeSingle();
   if (error) throw new Error("Could not load the receipt");
   if (!data) return null;
+  // A reprint shows what was still owed right after this payment, not today's balance.
+  const earlier = await listInvoiceReceipts(data.invoice_id!);
+  const paidUpToHere = sumMoney(earlier.filter((r) => r.receiptNo <= data.receipt_no!).map((r) => r.amount));
   return {
-    receiptNo: data.receipt_no,
+    receiptNo: data.receipt_no!,
     amount: Number(data.amount),
-    method: data.method,
-    createdAt: data.created_at,
-    fullName: data.full_name,
+    method: data.method!,
+    createdAt: data.created_at!,
+    fullName: data.full_name!,
     classLabel: `${data.grade} ${data.section}`,
-    description: data.description,
-    periodKey: data.period_key,
-    remaining: Number(data.remaining),
+    description: data.description!,
+    periodKey: data.period_key!,
+    invoiceId: data.invoice_id!,
+    remaining: Math.max(0, sumMoney([Number(data.invoice_amount), -paidUpToHere])),
   };
 }

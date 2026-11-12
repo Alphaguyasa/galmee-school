@@ -19,8 +19,15 @@ const METHOD_KEYS: Record<string, string> = {
   other: "methodOther",
 };
 
-export default async function ReceiptPage({ params }: { params: Promise<{ receiptId: string }> }) {
+export default async function ReceiptPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ receiptId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { receiptId } = await params;
+  const isNew = (await searchParams).new === "1";
   if (!uuidParam.safeParse(receiptId).success) notFound();
   const [{ tenant }, receipt, t, locale] = await Promise.all([
     getSession(),
@@ -39,9 +46,11 @@ export default async function ReceiptPage({ params }: { params: Promise<{ receip
 
   return (
     <div className="grid max-w-md gap-4">
-      <p role="status" className="rounded-md bg-accent p-3 text-sm print:hidden">
-        {t("paymentRecorded")}
-      </p>
+      {isNew ? (
+        <p role="status" className="rounded-md bg-accent p-3 text-sm print:hidden">
+          {t("paymentRecorded")}
+        </p>
+      ) : null}
       <ReceiptPreview
         className="mx-0 print:border-0 print:p-0"
         tenantName={tenant.name}
@@ -60,8 +69,11 @@ export default async function ReceiptPage({ params }: { params: Promise<{ receip
         footer={t("receiptFooter")}
       />
       <PrintButton label={t("printReceipt")} />
-      <Link href="/fees" className="flex h-12 items-center justify-center text-sm text-primary print:hidden">
-        {t("backToFees")}
+      <Link
+        href={`/fees/pay/${receipt.invoiceId}`}
+        className="flex h-12 items-center justify-center text-sm text-primary print:hidden"
+      >
+        {t("backToInvoice")}
       </Link>
     </div>
   );

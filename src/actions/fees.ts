@@ -46,5 +46,5 @@ export async function recordPaymentAction(_prev: FormState, formData: FormData):
     return { error: result.reason === "overpayment" ? "errorOverpayment" : "errorPayment" };
   }
   revalidatePath("/fees", "layout");
-  redirect(`/fees/receipts/${result.receiptId}`);
+  redirect(`/fees/receipts/${result.receiptId}?new=1`);
 }

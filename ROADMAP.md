@@ -44,7 +44,7 @@
 ## M-next: Tier 1 close-out
 
 - [x] Thermal receipt layout (Amharic) for fee receipts
-- [ ] Print + reprint from the receipt screen
+- [x] Print + reprint from the receipt screen
 - [ ] Payment-received SMS row queued by `sc_record_fee_payment`
 
 ## M-after: Tier 2 and 3
