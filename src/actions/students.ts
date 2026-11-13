@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { currentSchoolYear } from "@/lib/school-year";
 import { getSession } from "@/server/dal/session";
-import { addStudent, createClass } from "@/server/dal/students";
+import { addStudent, createClass, setStudentPhoto } from "@/server/dal/students";
+import { z } from "zod";
 import { classSchema, formToObject, studentSchema } from "@/server/validation";
 import type { FormState } from "./auth";
 
@@ -36,4 +37,15 @@ export async function addStudentAction(_prev: FormState, formData: FormData): Pr
   if (!result.ok) return { error: result.reason === "duplicate" ? "errorStudentNoTaken" : "errorSave" };
   revalidatePath("/students", "layout");
   redirect(`/students/new?class=${parsed.data.classId}&added=${crypto.randomUUID().slice(0, 8)}`);
+}
+
+/** Called after the browser uploaded the photo to storage; links it to the student. */
+export async function setStudentPhotoAction(studentId: string): Promise<{ ok: boolean }> {
+  const { profile } = await getSession();
+  if (profile.role === "staff") return { ok: false };
+  const id = z.uuid().safeParse(studentId);
+  if (!id.success) return { ok: false };
+  const ok = await setStudentPhoto(id.data);
+  if (ok) revalidatePath("/students/id-cards");
+  return { ok };
 }

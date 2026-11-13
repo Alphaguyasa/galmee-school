@@ -6,6 +6,7 @@ export type ClassDTO = { id: string; grade: string; section: string };
 export type RegisterRowDTO = {
   enrollmentId: string;
   studentId: string;
+  photoPath: string | null;
   rollNo: number | null;
   fullName: string;
   studentNo: string | null;
@@ -39,7 +40,7 @@ export async function listRegister(input: {
   const supabase = await createClient();
   let query = supabase
     .from("sc_student_register")
-    .select("enrollment_id, student_id, roll_no, full_name, student_no, grade, section, guardian_name, guardian_phone")
+    .select("enrollment_id, student_id, roll_no, full_name, student_no, grade, section, guardian_name, guardian_phone, photo_path")
     .eq("academic_year", input.year)
     .eq("status", "active");
 
@@ -61,6 +62,7 @@ export async function listRegister(input: {
   return data.map((r) => ({
     enrollmentId: r.enrollment_id,
     studentId: r.student_id,
+    photoPath: r.photo_path,
     rollNo: r.roll_no,
     fullName: r.full_name,
     studentNo: r.student_no,
@@ -174,4 +176,25 @@ export async function addStudent(input: {
     p_relation: input.relation,
   });
   return toResult(error);
+}
+
+const PHOTO_BUCKET = "sc-student-photos";
+const PHOTO_URL_SECONDS = 60 * 60;
+
+/** Short-lived signed URLs for student photos (the bucket is private), keyed by path. */
+export async function signedPhotoUrls(paths: string[]): Promise<Record<string, string>> {
+  if (paths.length === 0) return {};
+  const supabase = await createClient();
+  const { data, error } = await supabase.storage.from(PHOTO_BUCKET).createSignedUrls(paths, PHOTO_URL_SECONDS);
+  if (error || !data) return {};
+  const out: Record<string, string> = {};
+  for (const item of data) if (item.path && item.signedUrl) out[item.path] = item.signedUrl;
+  return out;
+}
+
+/** Records the uploaded photo on the student (owner/manager only, enforced in the database). */
+export async function setStudentPhoto(studentId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("sc_set_student_photo", { p_student_id: studentId });
+  return !error;
 }

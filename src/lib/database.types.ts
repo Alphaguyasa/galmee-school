@@ -83,6 +83,7 @@ export type Database = {
           gender: string | null
           date_of_birth: string | null
           student_no: string | null
+          photo_path: string | null
           guardian_id: string | null
           status: string
           created_at: string
@@ -94,6 +95,7 @@ export type Database = {
           gender?: string | null
           date_of_birth?: string | null
           student_no?: string | null
+          photo_path?: string | null
           guardian_id?: string | null
           status?: string
           created_at?: string
@@ -105,6 +107,7 @@ export type Database = {
           gender?: string | null
           date_of_birth?: string | null
           student_no?: string | null
+          photo_path?: string | null
           guardian_id?: string | null
           status?: string
           created_at?: string
@@ -1156,6 +1159,7 @@ export type Database = {
           guardian_id: string | null
           guardian_name: string | null
           guardian_phone: string | null
+          photo_path: string | null
         }
         Relationships: []
       }
@@ -1226,6 +1230,10 @@ export type Database = {
       sc_generate_invoices: {
         Args: { p_academic_year: number; p_period: string; p_period_key: string; p_due?: string }
         Returns: number
+      }
+      sc_set_student_photo: {
+        Args: { p_student_id: string }
+        Returns: string
       }
       sc_record_fee_payment: {
         Args: { p_invoice: string; p_amount: number; p_method?: Database["public"]["Enums"]["pay_method"]; p_reference?: string; p_client_ref?: string }

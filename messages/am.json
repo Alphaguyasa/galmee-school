@@ -120,7 +120,11 @@
     "idCardsSheetN": "ወረቀት {n}",
     "idCardTitle": "የተማሪ መታወቂያ",
     "studentNoShort": "ቁ.",
-    "yearShort": "ዓ.ም"
+    "yearShort": "ዓ.ም",
+    "photoAdd": "ፎቶ ጨምር",
+    "photoChange": "ፎቶ ቀይር",
+    "photoSaving": "ፎቶ እየተቀመጠ ነው…",
+    "photoFailed": "ፎቶው አልተቀመጠም። ግንኙነቱን አረጋግጠው እንደገና ይሞክሩ።"
   },
   "fees": {
     "title": "ክፍያ",

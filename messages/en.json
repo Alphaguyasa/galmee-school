@@ -120,7 +120,11 @@
     "idCardsSheetN": "Sheet {n}",
     "idCardTitle": "Student ID",
     "studentNoShort": "No.",
-    "yearShort": "Year"
+    "yearShort": "Year",
+    "photoAdd": "Add photo",
+    "photoChange": "Change photo",
+    "photoSaving": "Saving photo…",
+    "photoFailed": "Photo not saved. Check the connection and try again."
   },
   "fees": {
     "title": "Fees",

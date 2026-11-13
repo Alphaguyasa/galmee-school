@@ -120,7 +120,11 @@
     "idCardsSheetN": "Waraqaa {n}",
     "idCardTitle": "Eenyummaa barataa",
     "studentNoShort": "Lak.",
-    "yearShort": "Bara"
+    "yearShort": "Bara",
+    "photoAdd": "Suuraa dabali",
+    "photoChange": "Suuraa jijjiiri",
+    "photoSaving": "Suuraan olkaa'amaa jira…",
+    "photoFailed": "Suuraan hin olkaa'amne. Walqunnamtii mirkaneeffadhuu irra deebi'ii yaali."
   },
   "fees": {
     "title": "Kaffaltii",

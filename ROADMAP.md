@@ -47,6 +47,11 @@
 - [x] Print + reprint from the receipt screen
 - [x] Payment-received SMS row queued by `sc_record_fee_payment`
 
+## Student ID cards
+
+- [x] ID card per student: photo, QR code, school name, class and year; printed ten to an A4 sheet per class
+- [x] Photo taken or picked on the phone, cropped and shrunk before upload; private storage, owner/manager only
+
 ## M-after: Tier 2 and 3
 
 - [ ] Fee-due SMS generator per class/period into notifications

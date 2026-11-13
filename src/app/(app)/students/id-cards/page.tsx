@@ -7,7 +7,8 @@ import { EmptyState } from "@/components/galmee/empty-state";
 import { CARDS_PER_SHEET, chunk, initials, qrPath, studentCardPayload } from "@/lib/id-card";
 import { currentSchoolYear } from "@/lib/school-year";
 import { getSession } from "@/server/dal/session";
-import { listClasses, listRegister, type RegisterRowDTO } from "@/server/dal/students";
+import { listClasses, listRegister, signedPhotoUrls, type RegisterRowDTO } from "@/server/dal/students";
+import { StudentPhotoButton } from "@/components/student-photo-button";
 import { marksQuerySchema } from "@/server/validation";
 
 /** Student ID cards for one class, laid out ten to an A4 sheet (ID-1 size, 85.6 x 54 mm). */
@@ -17,13 +18,21 @@ export default async function IdCardsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const query = marksQuerySchema.parse(await searchParams);
-  const [{ tenant }, classes, t] = await Promise.all([getSession(), listClasses(), getTranslations("students")]);
+  const [{ tenant, profile }, classes, t] = await Promise.all([getSession(), listClasses(), getTranslations("students")]);
   const selected = classes.find((c) => c.id === query.class);
   if (!selected) notFound();
   const year = currentSchoolYear();
   const register = await listRegister({ year, classId: selected.id });
   const classLabel = `${selected.grade} ${selected.section}`;
   const sheets = chunk(register, CARDS_PER_SHEET);
+  const photos = await signedPhotoUrls(register.flatMap((r) => (r.photoPath ? [r.photoPath] : [])));
+  const canEditPhotos = profile.role !== "staff";
+  const photoLabels = {
+    add: t("photoAdd"),
+    change: t("photoChange"),
+    saving: t("photoSaving"),
+    failed: t("photoFailed"),
+  };
 
   return (
     <div className="grid gap-4">
@@ -60,13 +69,23 @@ export default async function IdCardsPage({
               className="id-sheet grid justify-items-center gap-3 sm:grid-cols-2 print:grid-cols-[85.6mm_85.6mm] print:justify-center print:gap-0 print:break-after-page print:last:break-after-auto"
             >
               {sheet.map((r) => (
-                <StudentCard
-                  key={r.enrollmentId}
-                  row={r}
-                  school={tenant.name}
-                  year={year}
-                  labels={{ card: t("idCardTitle"), cls: t("class"), no: t("studentNoShort"), year: t("yearShort") }}
-                />
+                <div key={r.enrollmentId} className="grid w-full max-w-[85.6mm] gap-2 print:contents">
+                  <StudentCard
+                    row={r}
+                    photoUrl={r.photoPath ? photos[r.photoPath] : undefined}
+                    school={tenant.name}
+                    year={year}
+                    labels={{ card: t("idCardTitle"), cls: t("class"), no: t("studentNoShort"), year: t("yearShort") }}
+                  />
+                  {canEditPhotos ? (
+                    <StudentPhotoButton
+                      tenantId={tenant.id}
+                      studentId={r.studentId}
+                      hasPhoto={Boolean(r.photoPath)}
+                      labels={photoLabels}
+                    />
+                  ) : null}
+                </div>
               ))}
             </section>
           ))}
@@ -78,11 +97,13 @@ export default async function IdCardsPage({
 
 function StudentCard({
   row,
+  photoUrl,
   school,
   year,
   labels,
 }: {
   row: RegisterRowDTO;
+  photoUrl?: string;
   school: string;
   year: number;
   labels: { card: string; cls: string; no: string; year: string };
@@ -98,12 +119,17 @@ function StudentCard({
         <p className="shrink-0 text-[2.4mm] leading-tight tracking-wide uppercase opacity-90">{labels.card}</p>
       </header>
       <div className="grid min-h-0 grid-cols-[17mm_1fr_19mm] items-center gap-[2.5mm] px-[3mm] py-[2mm]">
-        <div
-          aria-hidden
-          className="grid h-[21mm] w-[17mm] place-items-center rounded-sm border border-[#c9d0d8] bg-[#eef1f4] text-[6mm] font-bold text-[#5b6672]"
-        >
-          {initials(row.fullName)}
-        </div>
+        {photoUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element -- short-lived signed URL from private storage
+          <img src={photoUrl} alt="" className="h-[21mm] w-[17mm] rounded-sm border border-[#c9d0d8] object-cover" />
+        ) : (
+          <div
+            aria-hidden
+            className="grid h-[21mm] w-[17mm] place-items-center rounded-sm border border-[#c9d0d8] bg-[#eef1f4] text-[6mm] font-bold text-[#5b6672]"
+          >
+            {initials(row.fullName)}
+          </div>
+        )}
         <dl className="grid min-w-0 gap-[0.8mm] text-[2.6mm] leading-tight">
           <dt className="sr-only">Name</dt>
           <dd className="line-clamp-2 text-[3.6mm] font-bold">{row.fullName}</dd>
