@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { Contact, Phone, School, Search, Settings2, UserPlus, Users } from "lucide-react";
+import { Contact, IdCard, Phone, School, Search, Settings2, UserPlus, Users } from "lucide-react";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListRow, ListSheet } from "@/components/galmee/list-row";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -37,6 +37,12 @@ export default async function StudentsPage({
             <Link href={newHref} className={cn(buttonVariants(), "hidden md:inline-flex")}>
               <UserPlus aria-hidden />
               {t("addStudent")}
+            </Link>
+          ) : null}
+          {selected ? (
+            <Link href={`/students/id-cards?class=${selected.id}`} className={buttonVariants({ variant: "outline" })}>
+              <IdCard aria-hidden />
+              {t("idCards")}
             </Link>
           ) : null}
           <Link href="/students/parents" className={buttonVariants({ variant: "outline" })}>

@@ -112,7 +112,15 @@
     "parents": "ወላጆች",
     "parentsTitle": "የወላጆች ስልክ",
     "noParents": "ገና ወላጆች የሉም። ተማሪዎችን ሲመዘግቡ እዚህ ይታያሉ።",
-    "parentCount": "{count} ወላጆች"
+    "parentCount": "{count} ወላጆች",
+    "idCards": "የመታወቂያ ካርዶች",
+    "printIdCards": "መታወቂያ አትም",
+    "idCardsSheets": "{cards} ካርድ በ{sheets} A4 ወረቀት",
+    "idCardsHint": "በአንድ A4 ወረቀት አስር ካርድ በባንክ ካርድ መጠን ይታተማል። በነጠብጣብ መስመሩ ይቁረጡ። QR ኮዱ የተማሪውን የመዝገብ መለያ ብቻ ይይዛል፤ ስም ወይም ስልክ ቁጥር አይይዝም።",
+    "idCardsSheetN": "ወረቀት {n}",
+    "idCardTitle": "የተማሪ መታወቂያ",
+    "studentNoShort": "ቁ.",
+    "yearShort": "ዓ.ም"
   },
   "fees": {
     "title": "ክፍያ",

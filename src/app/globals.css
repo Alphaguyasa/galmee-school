@@ -163,3 +163,18 @@
     background: #fff;
   }
 }
+
+/* Student ID cards: ten ID-1 cards (85.6 x 54 mm) per A4 sheet, cut along the dashed edges. */
+@page idcards {
+  size: A4 portrait;
+  margin: 8mm 0;
+}
+@media print {
+  .id-sheet {
+    page: idcards;
+  }
+  .id-card {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

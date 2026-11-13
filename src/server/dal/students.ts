@@ -5,6 +5,7 @@ import { cleanSearchTerm } from "@/server/validation";
 export type ClassDTO = { id: string; grade: string; section: string };
 export type RegisterRowDTO = {
   enrollmentId: string;
+  studentId: string;
   rollNo: number | null;
   fullName: string;
   studentNo: string | null;
@@ -38,7 +39,7 @@ export async function listRegister(input: {
   const supabase = await createClient();
   let query = supabase
     .from("sc_student_register")
-    .select("enrollment_id, roll_no, full_name, student_no, grade, section, guardian_name, guardian_phone")
+    .select("enrollment_id, student_id, roll_no, full_name, student_no, grade, section, guardian_name, guardian_phone")
     .eq("academic_year", input.year)
     .eq("status", "active");
 
@@ -59,6 +60,7 @@ export async function listRegister(input: {
   if (error) throw new Error("Could not load the register");
   return data.map((r) => ({
     enrollmentId: r.enrollment_id,
+    studentId: r.student_id,
     rollNo: r.roll_no,
     fullName: r.full_name,
     studentNo: r.student_no,

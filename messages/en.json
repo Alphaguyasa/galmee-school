@@ -112,7 +112,15 @@
     "parents": "Parents",
     "parentsTitle": "Parent contacts",
     "noParents": "No parents yet. They appear here when you register students.",
-    "parentCount": "{count, plural, one {# parent} other {# parents}}"
+    "parentCount": "{count, plural, one {# parent} other {# parents}}",
+    "idCards": "ID cards",
+    "printIdCards": "Print ID cards",
+    "idCardsSheets": "{cards, plural, one {# card} other {# cards}} on {sheets, plural, one {# A4 sheet} other {# A4 sheets}}",
+    "idCardsHint": "Prints ten cards per A4 sheet at bank-card size. Cut along the dashed lines. The QR code holds only the student's record code, never a name or phone number.",
+    "idCardsSheetN": "Sheet {n}",
+    "idCardTitle": "Student ID",
+    "studentNoShort": "No.",
+    "yearShort": "Year"
   },
   "fees": {
     "title": "Fees",

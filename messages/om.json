@@ -112,7 +112,15 @@
     "parents": "Maatii",
     "parentsTitle": "Bilbila maatii",
     "noParents": "Maatiin hin jiran. Yeroo barattoota galmeessitan asitti mul'atu.",
-    "parentCount": "{count, plural, one {Maatii #} other {Maatii #}}"
+    "parentCount": "{count, plural, one {Maatii #} other {Maatii #}}",
+    "idCards": "Waraqaa eenyummaa",
+    "printIdCards": "Waraqaa eenyummaa maxxansi",
+    "idCardsSheets": "Kaardii {cards} waraqaa A4 {sheets} irratti",
+    "idCardsHint": "Waraqaa A4 tokko irratti kaardii kudhan hanga kaardii baankii maxxansa. Sarara tuqaa irratti muri. Koodiin QR koodii galmee barataa qofa qaba; maqaa ykn lakkoofsa bilbilaa hin qabu.",
+    "idCardsSheetN": "Waraqaa {n}",
+    "idCardTitle": "Eenyummaa barataa",
+    "studentNoShort": "Lak.",
+    "yearShort": "Bara"
   },
   "fees": {
     "title": "Kaffaltii",
