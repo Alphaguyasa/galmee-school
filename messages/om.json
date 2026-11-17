@@ -186,7 +186,14 @@
     "receiptFooter": "Galatoomaa. Nagahee kana kuusaa.",
     "receiptsHeading": "Nagahee kaffaltii kanaa",
     "reprint": "Irra deebi'ii maxxansi",
-    "backToInvoice": "Gara kaffaltii kanaatti deebi'i"
+    "backToInvoice": "Gara kaffaltii kanaatti deebi'i",
+    "remindHeading": "Maatii yaadachiisi",
+    "remindHint": "Maatii barattoota yeroo kanaaf hin kaffalin hundaaf SMS tokko ergama. Maatiin tokko guyyaatti yaadachiisa tokkoo ol hin argatu.",
+    "remindButton": "{count, plural, one {Maatii barataa # yaadachiisi} other {Maatii barattoota # yaadachiisi}}",
+    "remindQueued": "{count, plural, =0 {Yaadachiisni haaraan hin jiru.} one {Yaadachiisni # ni ergama.} other {Yaadachiisni # ni ergama.}}",
+    "remindNoPhone": "{count, plural, one {Barataan # bilbila maatii sirrii hin qabu.} other {Barattoonni # bilbila maatii sirrii hin qaban.}}",
+    "remindAlready": "{count, plural, one {Maatiin barataa # har'a duraan yaadatameera.} other {Maatiin barattoota # har'a duraan yaadatameera.}}",
+    "errorReminders": "Yaadachiisa erguu hin dandeenye. Walqunnamtii keessan mirkaneessaatii irra deebi'aa yaalaa; maatiin tokkollee lama hin argatu."
   },
   "attendance": {
     "title": "Argamuu barattootaa",

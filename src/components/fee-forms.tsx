@@ -2,7 +2,8 @@
 
 import { useActionState, useState } from "react";
 import { useTranslations } from "next-intl";
-import { addFeePlanAction, generateInvoicesAction, recordPaymentAction } from "@/actions/fees";
+import { MessageSquareText } from "lucide-react";
+import { addFeePlanAction, generateInvoicesAction, recordPaymentAction, sendRemindersAction } from "@/actions/fees";
 import { FormFeedback } from "@/components/form-feedback";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -119,6 +120,43 @@ export function PaymentForm({ invoiceId, remaining }: { invoiceId: string; remai
       <Button type="submit" size="lg" disabled={pending} aria-busy={pending}>
         {t("recordPayment")}
       </Button>
+    </form>
+  );
+}
+
+export function SendRemindersForm({
+  classId,
+  period,
+  unpaidCount,
+}: {
+  classId: string;
+  period: string;
+  unpaidCount: number;
+}) {
+  const t = useTranslations("fees");
+  const [state, action, pending] = useActionState(sendRemindersAction, undefined);
+  return (
+    <form action={action} className="grid gap-2 border-l-2 border-margin py-1 pl-4">
+      <input type="hidden" name="classId" value={classId} />
+      <input type="hidden" name="period" value={period} />
+      <h2 className="font-semibold">{t("remindHeading")}</h2>
+      <p className="text-sm text-muted-foreground">{t("remindHint")}</p>
+      <Button type="submit" variant="outline" disabled={pending} aria-busy={pending} className="justify-self-start">
+        <MessageSquareText className="size-4" aria-hidden />
+        {t("remindButton", { count: unpaidCount })}
+      </Button>
+      {state && "error" in state ? (
+        <p role="alert" className="text-sm text-destructive">
+          {t(state.error)}
+        </p>
+      ) : null}
+      {state && "queued" in state ? (
+        <div role="status" className="grid gap-1 rounded-md bg-accent p-3 text-sm">
+          <p className="font-semibold">{t("remindQueued", { count: state.queued })}</p>
+          {state.alreadyToday > 0 ? <p>{t("remindAlready", { count: state.alreadyToday })}</p> : null}
+          {state.noPhone > 0 ? <p>{t("remindNoPhone", { count: state.noPhone })}</p> : null}
+        </div>
+      ) : null}
     </form>
   );
 }

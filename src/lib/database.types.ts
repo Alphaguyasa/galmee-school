@@ -1243,6 +1243,10 @@ export type Database = {
         Args: { p_student_id: string }
         Returns: string
       }
+      sc_queue_fee_reminders: {
+        Args: { p_class_id: string; p_period_key: string }
+        Returns: Json
+      }
       sc_record_fee_payment: {
         Args: { p_invoice: string; p_amount: number; p_method?: Database["public"]["Enums"]["pay_method"]; p_reference?: string; p_client_ref?: string }
         Returns: Json

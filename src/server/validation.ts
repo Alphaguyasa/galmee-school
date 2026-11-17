@@ -104,6 +104,11 @@ export const feesQuerySchema = z.object({
 
 export const uuidParam = z.uuid();
 
+export const reminderSchema = z.object({
+  classId: z.uuid(),
+  period: periodKey,
+});
+
 const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 
 export const ATTENDANCE_STATUSES = ["present", "absent", "late", "excused"] as const;

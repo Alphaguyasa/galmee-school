@@ -2,11 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowLeft, ChevronRight } from "lucide-react";
+import { SendRemindersForm } from "@/components/fee-forms";
 import { FeeStatusMark, feeStatusWord } from "@/components/fee-status";
 import type { Locale } from "@/i18n/config";
 import { currentPeriodKey, periodLabel } from "@/lib/fee-period";
 import { formatBirr } from "@/lib/money";
 import { listClassInvoices } from "@/server/dal/fees";
+import { getSession } from "@/server/dal/session";
 import { listClasses } from "@/server/dal/students";
 import { feesQuerySchema, uuidParam } from "@/server/validation";
 
@@ -20,7 +22,8 @@ export default async function ClassFeesPage({
   const { classId } = await params;
   if (!uuidParam.safeParse(classId).success) notFound();
   const period = feesQuerySchema.parse(await searchParams).period ?? currentPeriodKey();
-  const [classes, rows, t, locale] = await Promise.all([
+  const [{ profile }, classes, rows, t, locale] = await Promise.all([
+    getSession(),
     listClasses(),
     listClassInvoices(classId, period),
     getTranslations("fees"),
@@ -29,6 +32,8 @@ export default async function ClassFeesPage({
   const klass = classes.find((c) => c.id === classId);
   if (!klass) notFound();
   const sorted = [...rows].sort((a, b) => Number(a.status === "paid") - Number(b.status === "paid"));
+  const unpaidCount = rows.filter((r) => r.status !== "paid" && r.remaining > 0).length;
+  const canRemind = (profile.role === "owner" || profile.role === "manager") && unpaidCount > 0;
 
   return (
     <div className="grid gap-4">
@@ -42,6 +47,7 @@ export default async function ClassFeesPage({
         </h1>
         <p className="num text-sm text-muted-foreground">{periodLabel(period, locale, (n) => t("term", { n }))}</p>
       </div>
+      {canRemind ? <SendRemindersForm classId={classId} period={period} unpaidCount={unpaidCount} /> : null}
       {sorted.length === 0 ? (
         <p className="border-l-2 border-margin py-3 pl-4 text-muted-foreground">{t("noClassInvoices")}</p>
       ) : (

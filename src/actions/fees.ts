@@ -2,9 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createFeePlan, generateInvoices, recordPayment } from "@/server/dal/fees";
+import { createFeePlan, generateInvoices, queueFeeReminders, recordPayment } from "@/server/dal/fees";
 import { getSession } from "@/server/dal/session";
-import { feePlanSchema, formToObject, generateSchema, paymentSchema } from "@/server/validation";
+import { feePlanSchema, formToObject, generateSchema, paymentSchema, reminderSchema } from "@/server/validation";
 import type { FormState } from "./auth";
 
 export async function addFeePlanAction(_prev: FormState, formData: FormData): Promise<FormState> {
@@ -47,4 +47,21 @@ export async function recordPaymentAction(_prev: FormState, formData: FormData):
   }
   revalidatePath("/fees", "layout");
   redirect(`/fees/receipts/${result.receiptId}?new=1`);
+}
+
+export type ReminderState =
+  | { error: string }
+  | { queued: number; noPhone: number; alreadyToday: number }
+  | undefined;
+
+export async function sendRemindersAction(_prev: ReminderState, formData: FormData): Promise<ReminderState> {
+  const { profile } = await getSession();
+  if (profile.role !== "owner" && profile.role !== "manager") return { error: "errorRole" };
+
+  const parsed = reminderSchema.safeParse(formToObject(formData, ["classId", "period"]));
+  if (!parsed.success) return { error: "errorSave" };
+
+  const result = await queueFeeReminders(parsed.data.classId, parsed.data.period);
+  if (!result.ok) return { error: result.reason === "forbidden" ? "errorRole" : "errorReminders" };
+  return { queued: result.queued, noPhone: result.noPhone, alreadyToday: result.alreadyToday };
 }

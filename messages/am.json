@@ -186,7 +186,14 @@
     "receiptFooter": "እናመሰግናለን። ይህን ደረሰኝ ያስቀምጡ።",
     "receiptsHeading": "የዚህ ክፍያ ደረሰኞች",
     "reprint": "እንደገና አትም",
-    "backToInvoice": "ወደዚህ ክፍያ ተመለስ"
+    "backToInvoice": "ወደዚህ ክፍያ ተመለስ",
+    "remindHeading": "ወላጆችን አስታውስ",
+    "remindHint": "ለዚህ ጊዜ ያልከፈሉ ተማሪዎች ወላጆች አንድ SMS ይላካል። እያንዳንዱ ወላጅ በቀን ከአንድ ማስታወሻ በላይ አይደርሰውም።",
+    "remindButton": "{count, plural, one {የ# ተማሪ ወላጅ አስታውስ} other {የ# ተማሪዎች ወላጆችን አስታውስ}}",
+    "remindQueued": "{count, plural, =0 {አዲስ ማስታወሻ የለም።} one {# ማስታወሻ ይላካል።} other {# ማስታወሻዎች ይላካሉ።}}",
+    "remindNoPhone": "{count, plural, one {# ተማሪ ትክክለኛ የወላጅ ስልክ የለውም።} other {# ተማሪዎች ትክክለኛ የወላጅ ስልክ የላቸውም።}}",
+    "remindAlready": "{count, plural, one {የ# ተማሪ ወላጅ ዛሬ ቀድሞ ተነግሯቸዋል።} other {የ# ተማሪዎች ወላጆች ዛሬ ቀድሞ ተነግሯቸዋል።}}",
+    "errorReminders": "ማስታወሻዎቹን መላክ አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ፤ ማንም ወላጅ ሁለት አይደርሰውም።"
   },
   "attendance": {
     "title": "የተማሪዎች መገኘት",

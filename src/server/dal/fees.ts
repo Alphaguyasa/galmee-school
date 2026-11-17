@@ -165,6 +165,25 @@ export async function recordPayment(input: {
   return { ok: true, receiptId: (data as { receipt_id: string }).receipt_id };
 }
 
+export type ReminderResult =
+  | { ok: true; queued: number; noPhone: number; alreadyToday: number }
+  | { ok: false; reason: "forbidden" | "error" };
+
+/**
+ * Queue one fee-due SMS per unpaid invoice of a class and period (owner/manager only).
+ * The database sends at most one reminder per invoice per day, so repeating is safe.
+ */
+export async function queueFeeReminders(classId: string, periodKey: string): Promise<ReminderResult> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("sc_queue_fee_reminders", {
+    p_class_id: classId,
+    p_period_key: periodKey,
+  });
+  if (error) return { ok: false, reason: error.code === "42501" ? "forbidden" : "error" };
+  const r = data as { queued: number; no_phone: number; already_today: number };
+  return { ok: true, queued: r.queued, noPhone: r.no_phone, alreadyToday: r.already_today };
+}
+
 export type InvoiceReceiptDTO = { receiptId: string; receiptNo: number; amount: number; createdAt: string };
 
 /** Every receipt issued against one invoice, oldest first (for reprints). */
