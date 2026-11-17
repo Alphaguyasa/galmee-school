@@ -202,6 +202,7 @@
     "excused": "Hayyama",
     "save": "Argamuu olkaa'i",
     "saved": "Argamuun olkaa'ameera.",
+    "savedSomeLocked": "Olkaa'ameera. Argamuun guyyaa darbee duraan olkaa'ame hin jijjiiramne: kan jijjiiruu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorRole": "Kana kan raawwachuu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorDay": "Har'a ykn guyyaa darbe filadhaa.",
     "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
@@ -229,6 +230,7 @@
     "subjectAdded": "Gosni barnootaa dabalameera.",
     "save": "Qabxii olkaa'i",
     "saved": "Qabxiin olkaa'ameera.",
+    "savedSomeLocked": "Qabxiin haaraan olkaa'ameera. Qabxiin duraan olkaa'ame hin jijjiiramne: kan jijjiiruu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorRole": "Kana kan gochuu danda'u abbaa qabeenyaa ykn hoggantaa qofa.",
     "errorSubject": "Maqaa gosa barnootaa fi qabxii olaanaa mirkaneessi.",
     "errorMark": "Qabxiin hundi lakkoofsa 0 fi olaanaa gidduu jiru ta'uu qaba.",

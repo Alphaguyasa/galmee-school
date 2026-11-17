@@ -202,6 +202,7 @@
     "excused": "Excused",
     "save": "Save attendance",
     "saved": "Attendance saved.",
+    "savedSomeLocked": "Saved. Entries for an earlier day that were already saved did not change: only the owner or a manager can change them.",
     "errorRole": "Only the owner or a manager can do this.",
     "errorDay": "Choose today or a past day.",
     "errorSave": "Could not save. Check your connection and try again."
@@ -229,6 +230,7 @@
     "subjectAdded": "Subject added.",
     "save": "Save marks",
     "saved": "Marks saved.",
+    "savedSomeLocked": "New marks saved. Marks that were already saved did not change: only the owner or a manager can change them.",
     "errorRole": "Only the owner or a manager can do this.",
     "errorSubject": "Check the subject name and the maximum mark.",
     "errorMark": "Each mark must be a number between 0 and the maximum.",
