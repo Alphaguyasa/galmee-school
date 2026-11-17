@@ -193,7 +193,18 @@
     "remindQueued": "{count, plural, =0 {No new reminders.} one {# reminder will be sent.} other {# reminders will be sent.}}",
     "remindNoPhone": "{count, plural, one {# student has no valid parent phone.} other {# students have no valid parent phone.}}",
     "remindAlready": "{count, plural, one {# student's parent was already reminded today.} other {# students' parents were already reminded today.}}",
-    "errorReminders": "Could not send the reminders. Check your connection and try again; no parent gets two."
+    "errorReminders": "Could not send the reminders. Check your connection and try again; no parent gets two.",
+    "collectionsTitle": "Collections",
+    "collectionsRange": "Show",
+    "rangeToday": "Today",
+    "rangeMonth": "This month",
+    "collectedLabel": "Collected",
+    "receiptCount": "{count, plural, =0 {no receipts} one {# receipt} other {# receipts}}",
+    "noCollections": "No fee payments recorded in this time yet.",
+    "downloadCsv": "Download CSV",
+    "csvReceiptNo": "Receipt no.",
+    "csvGregorian": "Recorded at (UTC)",
+    "csvAmount": "Amount (birr)"
   },
   "attendance": {
     "title": "Attendance",

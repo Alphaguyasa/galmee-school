@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ListChecks, ReceiptText } from "lucide-react";
+import { Banknote, ListChecks, ReceiptText } from "lucide-react";
 import { GenerateInvoicesForm } from "@/components/fee-forms";
 import { FeeStatusMark } from "@/components/fee-status";
 import { EmptyState } from "@/components/galmee/empty-state";
@@ -43,10 +43,16 @@ export default async function FeesPage({
       <div className="flex items-start justify-between gap-2">
         <h1 className="text-[1.5625rem] leading-tight font-bold">{t("title")}</h1>
         {canManage ? (
-          <Link href="/fees/plans" className={buttonVariants({ variant: "outline" })}>
-            <ListChecks aria-hidden />
-            {t("plans")}
-          </Link>
+          <div className="flex flex-wrap justify-end gap-2">
+            <Link href="/fees/collections" className={buttonVariants({ variant: "outline" })}>
+              <Banknote aria-hidden />
+              {t("collectionsTitle")}
+            </Link>
+            <Link href="/fees/plans" className={buttonVariants({ variant: "outline" })}>
+              <ListChecks aria-hidden />
+              {t("plans")}
+            </Link>
+          </div>
         ) : null}
       </div>
 

@@ -193,7 +193,18 @@
     "remindQueued": "{count, plural, =0 {አዲስ ማስታወሻ የለም።} one {# ማስታወሻ ይላካል።} other {# ማስታወሻዎች ይላካሉ።}}",
     "remindNoPhone": "{count, plural, one {# ተማሪ ትክክለኛ የወላጅ ስልክ የለውም።} other {# ተማሪዎች ትክክለኛ የወላጅ ስልክ የላቸውም።}}",
     "remindAlready": "{count, plural, one {የ# ተማሪ ወላጅ ዛሬ ቀድሞ ተነግሯቸዋል።} other {የ# ተማሪዎች ወላጆች ዛሬ ቀድሞ ተነግሯቸዋል።}}",
-    "errorReminders": "ማስታወሻዎቹን መላክ አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ፤ ማንም ወላጅ ሁለት አይደርሰውም።"
+    "errorReminders": "ማስታወሻዎቹን መላክ አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ፤ ማንም ወላጅ ሁለት አይደርሰውም።",
+    "collectionsTitle": "ገቢ",
+    "collectionsRange": "አሳይ",
+    "rangeToday": "ዛሬ",
+    "rangeMonth": "በዚህ ወር",
+    "collectedLabel": "የተሰበሰበ",
+    "receiptCount": "{count, plural, =0 {ደረሰኝ የለም} one {# ደረሰኝ} other {# ደረሰኞች}}",
+    "noCollections": "በዚህ ጊዜ የተመዘገበ የክፍያ ገቢ የለም።",
+    "downloadCsv": "CSV አውርድ",
+    "csvReceiptNo": "የደረሰኝ ቁጥር",
+    "csvGregorian": "የተመዘገበበት (UTC)",
+    "csvAmount": "መጠን (ብር)"
   },
   "attendance": {
     "title": "የተማሪዎች መገኘት",

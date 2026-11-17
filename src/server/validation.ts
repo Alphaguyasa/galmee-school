@@ -104,6 +104,10 @@ export const feesQuerySchema = z.object({
 
 export const uuidParam = z.uuid();
 
+export const collectionsQuerySchema = z.object({
+  range: z.enum(["today", "month"]).catch("today"),
+});
+
 export const reminderSchema = z.object({
   classId: z.uuid(),
   period: periodKey,

@@ -56,7 +56,7 @@
 
 - [x] Fee-due SMS generator per class/period into notifications
 - [x] Absence SMS on attendance save
-- [ ] Collections report screen (today / Ethiopian month) + CSV
+- [x] Collections report screen (today / Ethiopian month) + CSV
 - [ ] Offline queue for fee payment with client_ref
 - [ ] Report-card-ready Telegram batch
 - [ ] Teacher role: restrict mark entry to own subjects (with audit log)

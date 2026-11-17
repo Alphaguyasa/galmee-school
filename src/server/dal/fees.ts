@@ -228,3 +228,35 @@ export async function getReceipt(receiptId: string): Promise<ReceiptDTO | null> 
     remaining: Math.max(0, sumMoney([Number(data.invoice_amount), -paidUpToHere])),
   };
 }
+
+export type CollectionRowDTO = {
+  receiptNo: number;
+  amount: number;
+  method: string;
+  createdAt: string;
+  fullName: string;
+  classLabel: string;
+  description: string;
+};
+
+/** Fee receipts issued in [from, to), newest first (at most 5000 rows). */
+export async function listCollections(from: Date, to: Date): Promise<CollectionRowDTO[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("sc_receipt_details")
+    .select("receipt_no, amount, method, created_at, full_name, grade, section, description")
+    .gte("created_at", from.toISOString())
+    .lt("created_at", to.toISOString())
+    .order("created_at", { ascending: false })
+    .limit(5000);
+  if (error) throw new Error("Could not load collections");
+  return data.map((r) => ({
+    receiptNo: r.receipt_no,
+    amount: Number(r.amount),
+    method: r.method,
+    createdAt: r.created_at,
+    fullName: r.full_name,
+    classLabel: `${r.grade} ${r.section}`,
+    description: r.description,
+  }));
+}

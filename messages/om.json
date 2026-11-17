@@ -193,7 +193,18 @@
     "remindQueued": "{count, plural, =0 {Yaadachiisni haaraan hin jiru.} one {Yaadachiisni # ni ergama.} other {Yaadachiisni # ni ergama.}}",
     "remindNoPhone": "{count, plural, one {Barataan # bilbila maatii sirrii hin qabu.} other {Barattoonni # bilbila maatii sirrii hin qaban.}}",
     "remindAlready": "{count, plural, one {Maatiin barataa # har'a duraan yaadatameera.} other {Maatiin barattoota # har'a duraan yaadatameera.}}",
-    "errorReminders": "Yaadachiisa erguu hin dandeenye. Walqunnamtii keessan mirkaneessaatii irra deebi'aa yaalaa; maatiin tokkollee lama hin argatu."
+    "errorReminders": "Yaadachiisa erguu hin dandeenye. Walqunnamtii keessan mirkaneessaatii irra deebi'aa yaalaa; maatiin tokkollee lama hin argatu.",
+    "collectionsTitle": "Galii",
+    "collectionsRange": "Agarsiisi",
+    "rangeToday": "Har'a",
+    "rangeMonth": "Ji'a kana",
+    "collectedLabel": "Kan sassaabame",
+    "receiptCount": "{count, plural, =0 {nagaheen hin jiru} one {nagahee #} other {nagahee #}}",
+    "noCollections": "Yeroo kanatti kaffaltiin galmaa'e hin jiru.",
+    "downloadCsv": "CSV buusi",
+    "csvReceiptNo": "Lakk. nagahee",
+    "csvGregorian": "Yeroo galmaa'e (UTC)",
+    "csvAmount": "Maallaqa (qarshii)"
   },
   "attendance": {
     "title": "Argamuu barattootaa",
