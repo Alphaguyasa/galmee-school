@@ -22,7 +22,7 @@ export async function addSubjectAction(_prev: FormState, formData: FormData): Pr
 }
 
 export async function saveMarksAction(_prev: FormState, formData: FormData): Promise<FormState> {
-  const { tenant } = await getSession();
+  await getSession();
 
   const form = marksFormSchema.safeParse(formToObject(formData, ["subjectId", "term"]));
   if (!form.success) return { error: "errorSave" };
@@ -39,8 +39,8 @@ export async function saveMarksAction(_prev: FormState, formData: FormData): Pro
   if (!subject) return { error: "errorSave" };
   if (entries.data.some((e) => e.mark > subject.maxMark)) return { error: "errorMark" };
 
-  const { ok } = await saveMarks(tenant.id, subject.id, form.data.term, entries.data);
+  const { ok, locked } = await saveMarks(subject.id, form.data.term, entries.data);
   if (!ok) return { error: "errorSave" };
   revalidatePath("/marks");
-  return { info: "saved" };
+  return { info: locked > 0 ? "savedSomeLocked" : "saved" };
 }

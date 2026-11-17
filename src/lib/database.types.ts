@@ -1231,6 +1231,14 @@ export type Database = {
         Args: { p_academic_year: number; p_period: string; p_period_key: string; p_due?: string }
         Returns: number
       }
+      sc_save_attendance: {
+        Args: { p_day: string; p_marks: Json }
+        Returns: Json
+      }
+      sc_save_marks: {
+        Args: { p_subject: string; p_term: number; p_marks: Json }
+        Returns: Json
+      }
       sc_set_student_photo: {
         Args: { p_student_id: string }
         Returns: string

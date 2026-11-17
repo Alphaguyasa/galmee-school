@@ -129,18 +129,21 @@ export async function listAttendance(day: string, enrollmentIds: string[]): Prom
   return Object.fromEntries(data.map((r) => [r.enrollment_id, r.status]));
 }
 
-/** One write for the class; saving the same day again replaces its marks. */
+/**
+ * One call for the class. New entries are saved; a saved entry is changed on the same day
+ * by anyone, on a past day only by the owner or a manager (the others come back as `locked`).
+ */
 export async function saveAttendance(
-  tenantId: string,
   day: string,
   marks: { enrollmentId: string; status: string }[],
-): Promise<{ ok: boolean }> {
+): Promise<{ ok: boolean; locked: number }> {
   const supabase = await createClient();
-  const { error } = await supabase.from("sc_attendance").upsert(
-    marks.map((m) => ({ tenant_id: tenantId, enrollment_id: m.enrollmentId, day, status: m.status })),
-    { onConflict: "tenant_id,enrollment_id,day" },
-  );
-  return { ok: !error };
+  const { data, error } = await supabase.rpc("sc_save_attendance", {
+    p_day: day,
+    p_marks: marks.map((m) => ({ enrollment_id: m.enrollmentId, status: m.status })),
+  });
+  if (error) return { ok: false, locked: 0 };
+  return { ok: true, locked: Number((data as { locked?: number } | null)?.locked ?? 0) };
 }
 
 function toResult(error: { code?: string } | null): WriteResult {

@@ -42,21 +42,26 @@ export async function listMarks(subjectId: string, term: number, enrollmentIds: 
   return Object.fromEntries(data.map((r) => [r.enrollment_id, Number(r.mark)]));
 }
 
-/** One write for the class; saving again replaces the marks of the same subject and term. */
+export type SaveCounts = { ok: boolean; locked: number };
+
+/**
+ * One call for the class. New marks are saved; a saved mark is only changed when the
+ * caller is the owner or a manager (the database counts the others as `locked`).
+ */
 export async function saveMarks(
-  tenantId: string,
   subjectId: string,
   term: number,
   marks: { enrollmentId: string; mark: number }[],
-): Promise<{ ok: boolean }> {
-  if (marks.length === 0) return { ok: true };
+): Promise<SaveCounts> {
+  if (marks.length === 0) return { ok: true, locked: 0 };
   const supabase = await createClient();
-  const now = new Date().toISOString();
-  const { error } = await supabase.from("sc_grades").upsert(
-    marks.map((m) => ({ tenant_id: tenantId, enrollment_id: m.enrollmentId, subject_id: subjectId, term, mark: m.mark, updated_at: now })),
-    { onConflict: "tenant_id,enrollment_id,subject_id,term" },
-  );
-  return { ok: !error };
+  const { data, error } = await supabase.rpc("sc_save_marks", {
+    p_subject: subjectId,
+    p_term: term,
+    p_marks: marks.map((m) => ({ enrollment_id: m.enrollmentId, mark: m.mark })),
+  });
+  if (error) return { ok: false, locked: 0 };
+  return { ok: true, locked: Number((data as { locked?: number } | null)?.locked ?? 0) };
 }
 
 export type TermRankDTO = { total: number; average: number; rank: number; classSize: number };
