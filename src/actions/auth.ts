@@ -5,7 +5,7 @@ import { signInWithPassword, signOut, signUpWithPassword } from "@/server/dal/au
 import { credentialsSchema, formToObject, signupSchema } from "@/server/validation";
 
 /** Message keys are looked up in the form's next-intl namespace. */
-export type FormState = { error?: string; info?: string } | undefined;
+export type FormState = { error?: string; info?: string; values?: Record<string, number> } | undefined;
 
 export async function login(_prev: FormState, formData: FormData): Promise<FormState> {
   const parsed = credentialsSchema.safeParse(formToObject(formData, ["email", "password"]));

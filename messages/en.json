@@ -212,7 +212,8 @@
     "savedSomeLocked": "Saved. Entries for an earlier day that were already saved did not change: only the owner or a manager can change them.",
     "errorRole": "Only the owner or a manager can do this.",
     "errorDay": "Choose today or a past day.",
-    "errorSave": "Could not save. Check your connection and try again."
+    "errorSave": "Could not save. Check your connection and try again.",
+    "savedSms": "Attendance saved. {count, plural, one {The parent of # absent student gets an SMS.} other {Parents of # absent students get an SMS.}}"
   },
   "marks": {
     "title": "Marks",

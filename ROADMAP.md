@@ -55,7 +55,7 @@
 ## M-after: Tier 2 and 3
 
 - [x] Fee-due SMS generator per class/period into notifications
-- [ ] Absence SMS on attendance save
+- [x] Absence SMS on attendance save
 - [ ] Collections report screen (today / Ethiopian month) + CSV
 - [ ] Offline queue for fee payment with client_ref
 - [ ] Report-card-ready Telegram batch

@@ -22,8 +22,9 @@ export async function saveAttendanceAction(_prev: FormState, formData: FormData)
   if (!marks.success) return { error: "errorSave" };
 
   // The database function checks the school, the enrolment and who may change a past day.
-  const { ok, locked } = await saveAttendance(day.data, marks.data);
+  const { ok, locked, sms } = await saveAttendance(day.data, marks.data);
   if (!ok) return { error: "errorSave" };
   revalidatePath("/attendance");
-  return { info: locked > 0 ? "savedSomeLocked" : "saved" };
+  if (locked > 0) return { info: "savedSomeLocked" };
+  return sms > 0 ? { info: "savedSms", values: { count: sms } } : { info: "saved" };
 }

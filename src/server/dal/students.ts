@@ -136,14 +136,16 @@ export async function listAttendance(day: string, enrollmentIds: string[]): Prom
 export async function saveAttendance(
   day: string,
   marks: { enrollmentId: string; status: string }[],
-): Promise<{ ok: boolean; locked: number }> {
+): Promise<{ ok: boolean; locked: number; sms: number }> {
   const supabase = await createClient();
   const { data, error } = await supabase.rpc("sc_save_attendance", {
     p_day: day,
     p_marks: marks.map((m) => ({ enrollment_id: m.enrollmentId, status: m.status })),
   });
-  if (error) return { ok: false, locked: 0 };
-  return { ok: true, locked: Number((data as { locked?: number } | null)?.locked ?? 0) };
+  if (error) return { ok: false, locked: 0, sms: 0 };
+  const r = data as { locked?: number; sms?: number } | null;
+  // `sms`: parents of students marked absent today who get an absence SMS (once per student per day).
+  return { ok: true, locked: Number(r?.locked ?? 0), sms: Number(r?.sms ?? 0) };
 }
 
 function toResult(error: { code?: string } | null): WriteResult {

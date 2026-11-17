@@ -212,7 +212,8 @@
     "savedSomeLocked": "Olkaa'ameera. Argamuun guyyaa darbee duraan olkaa'ame hin jijjiiramne: kan jijjiiruu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorRole": "Kana kan raawwachuu danda'an abbaa qabeenyaa ykn hoogganaa qofa.",
     "errorDay": "Har'a ykn guyyaa darbe filadhaa.",
-    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa."
+    "errorSave": "Olkaa'uun hin danda'amne. Quunnamtii keessan mirkaneeffadhaa irra deebi'aa yaalaa.",
+    "savedSms": "Argamuun olkaa'ameera. {count, plural, one {Maatiin barataa hafe # SMS ni argata.} other {Maatiin barattoota hafan # SMS ni argatu.}}"
   },
   "marks": {
     "title": "Qabxii",
