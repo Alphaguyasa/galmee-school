@@ -58,7 +58,7 @@
 - [x] Absence SMS on attendance save
 - [x] Collections report screen (today / Ethiopian month) + CSV
 - [x] Offline queue for fee payment with client_ref
-- [ ] Report-card-ready Telegram batch
+- [x] Report-card-ready Telegram batch
 - [ ] Teacher role: restrict mark entry to own subjects (with audit log)
 - [ ] Academic-year roll-over (promote classes, close year)
 - [ ] Excel import of students; export everything
