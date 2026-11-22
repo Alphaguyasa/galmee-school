@@ -147,6 +147,11 @@ export const marksEntriesSchema = z
   .array(z.object({ enrollmentId: z.uuid(), mark: markSchema }))
   .max(300);
 
+export const reportCardNoticeSchema = z.object({
+  classId: z.uuid(),
+  term: z.coerce.number().int().min(1).max(4),
+});
+
 export const marksQuerySchema = z.object({
   class: z.uuid().optional().catch(undefined),
   subject: z.uuid().optional().catch(undefined),

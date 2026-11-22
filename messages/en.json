@@ -265,7 +265,15 @@
     "rank": "Rank",
     "rankOf": "{rank} of {size}",
     "teacherSignature": "Homeroom teacher",
-    "parentSignature": "Parent or guardian"
+    "parentSignature": "Parent or guardian",
+    "notifyHeading": "Tell parents",
+    "notifyHint": "One message per student whose marks are in: by Telegram when the parent has linked it, otherwise by SMS. Each parent is told once per term.",
+    "notifyButton": "Report cards are ready",
+    "notifySent": "Sent: {telegram} by Telegram, {sms} by SMS.",
+    "notifyAlready": "{count, plural, =1 {1 parent was} other {# parents were}} already told this term.",
+    "notifyNoMarks": "{count, plural, =1 {1 student has} other {# students have}} no marks yet this term.",
+    "notifyNoContact": "{count, plural, =1 {1 student has} other {# students have}} no parent phone or Telegram.",
+    "errorNotify": "Could not send. Check your connection and try again; no parent is told twice."
   },
   "offlineQueue": {
     "queuedPayment": "Fee payment · {amount}",

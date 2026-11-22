@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
+import { NotifyReportCardsForm } from "@/components/marks-forms";
 import { PrintButton } from "@/components/print-button";
 import { currentSchoolYear } from "@/lib/school-year";
 import { listClassTermMarks, listClassTermRanks, listSubjects } from "@/server/dal/marks";
@@ -16,7 +17,7 @@ export default async function ReportCardsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const query = marksQuerySchema.parse(await searchParams);
-  const [{ tenant }, classes, t] = await Promise.all([
+  const [{ tenant, profile }, classes, t] = await Promise.all([
     getSession(),
     listClasses(),
     getTranslations("marks"),
@@ -49,6 +50,10 @@ export default async function ReportCardsPage({
         </h1>
         {register.length > 0 && subjects.length > 0 ? <PrintButton label={t("printCards")} /> : null}
       </div>
+
+      {register.length > 0 && subjects.length > 0 && (profile.role === "owner" || profile.role === "manager") ? (
+        <NotifyReportCardsForm classId={selected.id} term={term} />
+      ) : null}
 
       {register.length === 0 || subjects.length === 0 ? (
         <p className="border-l-2 border-margin py-3 pl-4 text-muted-foreground">{t("nothingToPrint")}</p>

@@ -265,7 +265,15 @@
     "rank": "ደረጃ",
     "rankOf": "ከ{size} {rank}ኛ",
     "teacherSignature": "የክፍል ኃላፊ መምህር",
-    "parentSignature": "ወላጅ ወይም አሳዳጊ"
+    "parentSignature": "ወላጅ ወይም አሳዳጊ",
+    "notifyHeading": "ለወላጆች ያሳውቁ",
+    "notifyHint": "ውጤቱ ለገባ ለእያንዳንዱ ተማሪ አንድ መልዕክት፦ ወላጁ ቴሌግራም ካገናኘ በቴሌግራም፣ ካልሆነ በኤስኤምኤስ። እያንዳንዱ ወላጅ በወሰነ ትምህርት አንድ ጊዜ ብቻ ይነገረዋል።",
+    "notifyButton": "የውጤት ካርዶች ተዘጋጅተዋል",
+    "notifySent": "ተልኳል፦ {telegram} በቴሌግራም፣ {sms} በኤስኤምኤስ።",
+    "notifyAlready": "{count} ወላጆች በዚህ ወሰነ ትምህርት ቀድመው ተነግሯቸዋል።",
+    "notifyNoMarks": "{count} ተማሪዎች በዚህ ወሰነ ትምህርት ገና ውጤት የላቸውም።",
+    "notifyNoContact": "{count} ተማሪዎች የወላጅ ስልክ ወይም ቴሌግራም የላቸውም።",
+    "errorNotify": "መላክ አልተቻለም። ግንኙነትዎን ያረጋግጡና እንደገና ይሞክሩ፤ ማንም ወላጅ ሁለት ጊዜ አይነገረውም።"
   },
   "offlineQueue": {
     "queuedPayment": "የክፍያ ገቢ · {amount}",

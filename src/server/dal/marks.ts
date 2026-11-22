@@ -98,3 +98,24 @@ export async function listClassTermRanks(classId: string, year: number, term: nu
     ]),
   );
 }
+
+export type ReportCardNoticeResult =
+  | { ok: true; telegram: number; sms: number; noContact: number; already: number; noMarks: number }
+  | { ok: false; reason: "forbidden" | "error" };
+
+/**
+ * Tell parents that a class's report cards for a term are ready (owner/manager only):
+ * Telegram when the parent's chat is linked, otherwise SMS. The database tells each
+ * student's parent at most once per term, so repeating only reaches late marks.
+ */
+export async function queueReportCardNotices(classId: string, year: number, term: number): Promise<ReportCardNoticeResult> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("sc_queue_report_card_notices", {
+    p_class_id: classId,
+    p_year: year,
+    p_term: term,
+  });
+  if (error) return { ok: false, reason: error.code === "42501" ? "forbidden" : "error" };
+  const r = data as { telegram: number; sms: number; no_contact: number; already: number; no_marks: number };
+  return { ok: true, telegram: r.telegram, sms: r.sms, noContact: r.no_contact, already: r.already, noMarks: r.no_marks };
+}

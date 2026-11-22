@@ -1,9 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createSubject, getSubject, saveMarks } from "@/server/dal/marks";
+import { currentSchoolYear } from "@/lib/school-year";
+import { createSubject, getSubject, queueReportCardNotices, saveMarks } from "@/server/dal/marks";
 import { getSession } from "@/server/dal/session";
-import { formToObject, marksEntriesSchema, marksFormSchema, subjectSchema } from "@/server/validation";
+import { formToObject, marksEntriesSchema, marksFormSchema, reportCardNoticeSchema, subjectSchema } from "@/server/validation";
 import type { FormState } from "./auth";
 
 const MARK_PREFIX = "mark_";
@@ -43,4 +44,27 @@ export async function saveMarksAction(_prev: FormState, formData: FormData): Pro
   if (!ok) return { error: "errorSave" };
   revalidatePath("/marks");
   return { info: locked > 0 ? "savedSomeLocked" : "saved" };
+}
+
+export type NoticeState =
+  | { error: string }
+  | { telegram: number; sms: number; noContact: number; already: number; noMarks: number }
+  | undefined;
+
+export async function notifyReportCardsAction(_prev: NoticeState, formData: FormData): Promise<NoticeState> {
+  const { profile } = await getSession();
+  if (profile.role !== "owner" && profile.role !== "manager") return { error: "errorRole" };
+
+  const parsed = reportCardNoticeSchema.safeParse(formToObject(formData, ["classId", "term"]));
+  if (!parsed.success) return { error: "errorSave" };
+
+  const result = await queueReportCardNotices(parsed.data.classId, currentSchoolYear(), parsed.data.term);
+  if (!result.ok) return { error: result.reason === "forbidden" ? "errorRole" : "errorNotify" };
+  return {
+    telegram: result.telegram,
+    sms: result.sms,
+    noContact: result.noContact,
+    already: result.already,
+    noMarks: result.noMarks,
+  };
 }

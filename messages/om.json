@@ -265,7 +265,15 @@
     "rank": "Sadarkaa",
     "rankOf": "{size} keessaa {rank}ffaa",
     "teacherSignature": "Barsiisaa kutaa",
-    "parentSignature": "Maatii ykn guddisaa"
+    "parentSignature": "Maatii ykn guddisaa",
+    "notifyHeading": "Maatiitti himi",
+    "notifyHint": "Barataa qabxiin isaa gale hundaaf ergaa tokko: maatiin Telegram yoo walqabsiise Telegramiin, yoo hin taane SMS-n. Maatiin tokko semistara tokkotti al tokko qofa itti himama.",
+    "notifyButton": "Kaardiin qabxii qophaa'eera",
+    "notifySent": "Ergameera: {telegram} Telegramiin, {sms} SMS-n.",
+    "notifyAlready": "Maatii {count} semistara kana duraan itti himameera.",
+    "notifyNoMarks": "Barattoota {count} semistara kana qabxii hin qaban.",
+    "notifyNoContact": "Barattoota {count} bilbila ykn Telegram maatii hin qaban.",
+    "errorNotify": "Erguun hin danda'amne. Walqunnamtii kee mirkaneessiitii irra deebi'ii yaali; maatiin tokko al lama hin himamu."
   },
   "offlineQueue": {
     "queuedPayment": "Kaffaltii barnootaa · {amount}",

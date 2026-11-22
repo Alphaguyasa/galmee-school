@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import { useTranslations } from "next-intl";
-import { addSubjectAction, saveMarksAction } from "@/actions/marks";
+import { Send } from "lucide-react";
+import { addSubjectAction, notifyReportCardsAction, saveMarksAction } from "@/actions/marks";
 import { FormFeedback } from "@/components/form-feedback";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -93,6 +94,37 @@ export function MarksForm({
           {t("save")}
         </Button>
       </div>
+    </form>
+  );
+}
+
+/** Owner/manager: tell every parent of the class that this term's report card is ready. */
+export function NotifyReportCardsForm({ classId, term }: { classId: string; term: number }) {
+  const t = useTranslations("marks");
+  const [state, action, pending] = useActionState(notifyReportCardsAction, undefined);
+  return (
+    <form action={action} className="grid gap-2 border-l-2 border-margin py-1 pl-4 print:hidden">
+      <input type="hidden" name="classId" value={classId} />
+      <input type="hidden" name="term" value={term} />
+      <h2 className="font-semibold">{t("notifyHeading")}</h2>
+      <p className="text-sm text-muted-foreground">{t("notifyHint")}</p>
+      <Button type="submit" variant="outline" disabled={pending} aria-busy={pending} className="justify-self-start">
+        <Send className="size-4" aria-hidden />
+        {t("notifyButton")}
+      </Button>
+      {state && "error" in state ? (
+        <p role="alert" className="text-sm text-destructive">
+          {t(state.error)}
+        </p>
+      ) : null}
+      {state && "telegram" in state ? (
+        <div role="status" className="grid gap-1 rounded-md bg-accent p-3 text-sm">
+          <p className="font-semibold">{t("notifySent", { telegram: state.telegram, sms: state.sms })}</p>
+          {state.already > 0 ? <p>{t("notifyAlready", { count: state.already })}</p> : null}
+          {state.noMarks > 0 ? <p>{t("notifyNoMarks", { count: state.noMarks })}</p> : null}
+          {state.noContact > 0 ? <p>{t("notifyNoContact", { count: state.noContact })}</p> : null}
+        </div>
+      ) : null}
     </form>
   );
 }
