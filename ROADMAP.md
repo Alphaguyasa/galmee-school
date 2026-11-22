@@ -17,7 +17,7 @@
 - [ ] Customers: list, search by name/phone, detail with balance
 - [ ] Payments and credit: record payment, credit statement
 - [ ] Reports: today / this week / this Ethiopian month; export CSV
-- [ ] Offline queue for fee payments only, with sync status indicator
+- [x] Offline queue for fee payments only, with sync status indicator
 
 ## M2: Galmee School features
 
@@ -57,7 +57,7 @@
 - [x] Fee-due SMS generator per class/period into notifications
 - [x] Absence SMS on attendance save
 - [x] Collections report screen (today / Ethiopian month) + CSV
-- [ ] Offline queue for fee payment with client_ref
+- [x] Offline queue for fee payment with client_ref
 - [ ] Report-card-ready Telegram batch
 - [ ] Teacher role: restrict mark entry to own subjects (with audit log)
 - [ ] Academic-year roll-over (promote classes, close year)
