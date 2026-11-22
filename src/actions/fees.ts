@@ -2,9 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createFeePlan, generateInvoices, queueFeeReminders, recordPayment } from "@/server/dal/fees";
+import { createFeePlan, generateInvoices, queueFeeReminders } from "@/server/dal/fees";
 import { getSession } from "@/server/dal/session";
-import { feePlanSchema, formToObject, generateSchema, paymentSchema, reminderSchema } from "@/server/validation";
+import { feePlanSchema, formToObject, generateSchema, reminderSchema } from "@/server/validation";
 import type { FormState } from "./auth";
 
 export async function addFeePlanAction(_prev: FormState, formData: FormData): Promise<FormState> {
@@ -31,22 +31,6 @@ export async function generateInvoicesAction(_prev: FormState, formData: FormDat
   if (!result.ok) return { error: "errorSave" };
   revalidatePath("/fees", "layout");
   redirect(`/fees?period=${parsed.data.period.key}&generated=${result.count}`);
-}
-
-export async function recordPaymentAction(_prev: FormState, formData: FormData): Promise<FormState> {
-  await getSession();
-
-  const parsed = paymentSchema.safeParse(
-    formToObject(formData, ["invoiceId", "amount", "method", "reference", "clientRef"]),
-  );
-  if (!parsed.success) return { error: "errorAmount" };
-
-  const result = await recordPayment(parsed.data);
-  if (!result.ok) {
-    return { error: result.reason === "overpayment" ? "errorOverpayment" : "errorPayment" };
-  }
-  revalidatePath("/fees", "layout");
-  redirect(`/fees/receipts/${result.receiptId}?new=1`);
 }
 
 export type ReminderState =

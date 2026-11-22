@@ -204,7 +204,8 @@
     "downloadCsv": "CSV አውርድ",
     "csvReceiptNo": "የደረሰኝ ቁጥር",
     "csvGregorian": "የተመዘገበበት (UTC)",
-    "csvAmount": "መጠን (ብር)"
+    "csvAmount": "መጠን (ብር)",
+    "paymentQueued": "ኔትወርክ የለም፦ የ{amount} ክፍያው በዚህ ስልክ ተቀምጧል፤ ኢንተርኔት ሲመለስ ይላካል። ደረሰኙ ከዚያ በኋላ ይዘጋጃል።"
   },
   "attendance": {
     "title": "የተማሪዎች መገኘት",
@@ -265,5 +266,13 @@
     "rankOf": "ከ{size} {rank}ኛ",
     "teacherSignature": "የክፍል ኃላፊ መምህር",
     "parentSignature": "ወላጅ ወይም አሳዳጊ"
+  },
+  "offlineQueue": {
+    "queuedPayment": "የክፍያ ገቢ · {amount}",
+    "error_overpayment": "በዚህ ደረሰኝ ከቀረው በላይ ነው።",
+    "error_invoice_not_found": "ይህ የክፍያ ጥያቄ በትምህርት ቤቱ ውስጥ የለም።",
+    "error_invalid_amount": "መጠኑ ተቀባይነት አላገኘም።",
+    "error_forbidden": "የእርስዎ ሚና ይህን ክፍያ መመዝገብ አይፈቅድም።",
+    "error_other": "አገልጋዩ አልተቀበለውም። ያረጋግጡና እንደገና ያስገቡ።"
   }
 }

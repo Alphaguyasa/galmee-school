@@ -5,6 +5,7 @@ import { AppNav } from "@/components/app-nav";
 import { OfflineBanner } from "@/components/galmee/offline-banner";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Logo } from "@/components/logo";
+import { OfflineSync } from "@/components/offline-sync";
 import { Button } from "@/components/ui/button";
 
 type ShellProps = {
@@ -12,6 +13,7 @@ type ShellProps = {
   logoUrl: string | null;
   userName: string;
   roleLabel: string;
+  role: string;
   children: React.ReactNode;
 };
 
@@ -33,7 +35,7 @@ function TenantBadge({
   );
 }
 
-export async function AppShell({ tenantName, logoUrl, userName, roleLabel, children }: ShellProps) {
+export async function AppShell({ tenantName, logoUrl, userName, roleLabel, role, children }: ShellProps) {
   const [t, tCommon] = await Promise.all([getTranslations("auth"), getTranslations("common")]);
   return (
     <div className="min-h-dvh md:grid md:grid-cols-[15rem_1fr] print:block">
@@ -45,6 +47,7 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, child
       </a>
       <aside className="hidden border-r bg-card md:flex md:flex-col md:gap-6 md:p-4 print:hidden">
         <TenantBadge tenantName={tenantName} logoUrl={logoUrl} />
+        <OfflineSync role={role} />
         <AppNav variant="side" />
         <div className="mt-auto grid gap-3">
           <div className="text-sm">
@@ -65,6 +68,7 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, child
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-2 bg-primary px-4 text-primary-foreground md:hidden print:hidden">
           <TenantBadge tenantName={tenantName} logoUrl={logoUrl} inverse />
           <div className="flex items-center gap-1">
+            <OfflineSync role={role} />
             <LanguageSwitcher inverse />
             <form action={logout}>
               <Button

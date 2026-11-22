@@ -1,14 +1,20 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { useTranslations } from "next-intl";
-import { MessageSquareText } from "lucide-react";
-import { addFeePlanAction, generateInvoicesAction, recordPaymentAction, sendRemindersAction } from "@/actions/fees";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { CloudOff, MessageSquareText } from "lucide-react";
+import { addFeePlanAction, generateInvoicesAction, sendRemindersAction } from "@/actions/fees";
 import { FormFeedback } from "@/components/form-feedback";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
+import type { Locale } from "@/i18n/config";
+import { buildFeePayment, paymentErrorKey, receiptIdOf } from "@/lib/fee-payment";
+import { formatBirr } from "@/lib/money";
+import { getOffline } from "@/lib/offline";
 
 export function GenerateInvoicesForm({
   options,
@@ -81,15 +87,82 @@ export function FeePlanForm({ grades }: { grades: string[] }) {
   );
 }
 
-export function PaymentForm({ invoiceId, remaining }: { invoiceId: string; remaining: number }) {
+/**
+ * Records a fee payment straight from the phone. With no network it waits in the
+ * phone's queue and is sent on reconnect; the same `client_ref` on every try
+ * means a retry or a double tap can never count it twice.
+ */
+export function PaymentForm({
+  invoiceId,
+  remaining,
+  backHref,
+  backLabel,
+}: {
+  invoiceId: string;
+  remaining: number;
+  backHref: string;
+  backLabel: string;
+}) {
   const t = useTranslations("fees");
-  const [state, action, pending] = useActionState(recordPaymentAction, undefined);
+  const locale = useLocale() as Locale;
+  const router = useRouter();
   // One id per form: retries of the same submit cannot record the payment twice.
   const [clientRef] = useState(() => crypto.randomUUID());
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [queued, setQueued] = useState<number | null>(null);
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const check = buildFeePayment({
+      invoiceId,
+      remaining,
+      amount: String(form.get("amount") ?? ""),
+      method: String(form.get("method") ?? "cash"),
+      reference: String(form.get("reference") ?? ""),
+      clientRef,
+    });
+    if (!check.ok) return setError(check.error);
+
+    setPending(true);
+    setError(null);
+    try {
+      const result = await getOffline().engine.callOrQueue("sc_record_fee_payment", check.args);
+      if (result.status === "ok") {
+        const receiptId = receiptIdOf(result.data);
+        if (receiptId) {
+          router.push(`/fees/receipts/${receiptId}?new=1`);
+          return;
+        }
+        setError("errorPayment");
+      } else if (result.status === "queued") {
+        setQueued(check.args.p_amount);
+      } else {
+        setError(paymentErrorKey(result.error.message));
+      }
+    } catch {
+      setError("errorPayment");
+    }
+    setPending(false);
+  }
+
+  if (queued !== null) {
+    return (
+      <div className="grid gap-4">
+        <p role="status" className="flex items-start gap-2 rounded-md border border-warn p-3">
+          <CloudOff className="mt-0.5 size-5 shrink-0 text-warn" aria-hidden />
+          {t("paymentQueued", { amount: formatBirr(queued, locale) })}
+        </p>
+        <Link href={backHref} className={buttonVariants({ size: "lg", variant: "outline" })}>
+          {backLabel}
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <form action={action} className="grid gap-4">
-      <input type="hidden" name="invoiceId" value={invoiceId} />
-      <input type="hidden" name="clientRef" value={clientRef} />
+    <form onSubmit={onSubmit} className="grid gap-4" noValidate>
       <div className="grid gap-2">
         <Label htmlFor="amount">{t("amountBirr")}</Label>
         <Input
@@ -116,7 +189,11 @@ export function PaymentForm({ invoiceId, remaining }: { invoiceId: string; remai
         <Label htmlFor="reference">{t("reference")}</Label>
         <Input id="reference" name="reference" autoComplete="off" maxLength={60} />
       </div>
-      <FormFeedback state={state} t={t} />
+      {error ? (
+        <p role="alert" className="text-sm text-destructive">
+          {t(error)}
+        </p>
+      ) : null}
       <Button type="submit" size="lg" disabled={pending} aria-busy={pending}>
         {t("recordPayment")}
       </Button>

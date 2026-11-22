@@ -86,14 +86,6 @@ export const generateSchema = z.object({
     }),
 });
 
-export const paymentSchema = z.object({
-  invoiceId: z.uuid(),
-  amount: amountSchema,
-  method: z.enum(COUNTER_METHODS),
-  reference: z.string().trim().max(60),
-  clientRef: z.uuid(),
-});
-
 const periodKey = z.string().regex(/^\d{4}(-(0[1-9]|1[0-3]|T[1-4]))?$/);
 
 /** Query string of the fee screens. Bad values fall back to "not set". */

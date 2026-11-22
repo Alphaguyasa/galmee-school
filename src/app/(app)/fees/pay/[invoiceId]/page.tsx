@@ -49,7 +49,12 @@ export default async function PayFeePage({ params }: { params: Promise<{ invoice
             <p className="num text-3xl font-bold">{formatBirr(invoice.remaining, locale)}</p>
             <p className="num text-sm text-muted-foreground">{t("ofTotal", { total: formatBirr(invoice.amount, locale) })}</p>
           </div>
-          <PaymentForm invoiceId={invoice.invoiceId} remaining={invoice.remaining} />
+          <PaymentForm
+            invoiceId={invoice.invoiceId}
+            remaining={invoice.remaining}
+            backHref={`/fees/class/${invoice.classId}?period=${invoice.periodKey}`}
+            backLabel={invoice.classLabel}
+          />
         </>
       )}
       {receipts.length > 0 ? (

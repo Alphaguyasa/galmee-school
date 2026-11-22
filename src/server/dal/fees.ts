@@ -138,33 +138,6 @@ export async function getInvoice(invoiceId: string): Promise<InvoiceDetailDTO | 
   };
 }
 
-export type PaymentResult =
-  | { ok: true; receiptId: string }
-  | { ok: false; reason: "overpayment" | "not_found" | "error" };
-
-export async function recordPayment(input: {
-  invoiceId: string;
-  amount: number;
-  method: "cash" | "telebirr" | "cbe_birr" | "bank" | "other";
-  reference: string;
-  clientRef: string;
-}): Promise<PaymentResult> {
-  const supabase = await createClient();
-  const { data, error } = await supabase.rpc("sc_record_fee_payment", {
-    p_invoice: input.invoiceId,
-    p_amount: input.amount,
-    p_method: input.method,
-    p_reference: input.reference || undefined,
-    p_client_ref: input.clientRef,
-  });
-  if (error) {
-    if (error.message.includes("overpayment")) return { ok: false, reason: "overpayment" };
-    if (error.message.includes("invoice_not_found")) return { ok: false, reason: "not_found" };
-    return { ok: false, reason: "error" };
-  }
-  return { ok: true, receiptId: (data as { receipt_id: string }).receipt_id };
-}
-
 export type ReminderResult =
   | { ok: true; queued: number; noPhone: number; alreadyToday: number }
   | { ok: false; reason: "forbidden" | "error" };

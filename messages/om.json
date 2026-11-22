@@ -204,7 +204,8 @@
     "downloadCsv": "CSV buusi",
     "csvReceiptNo": "Lakk. nagahee",
     "csvGregorian": "Yeroo galmaa'e (UTC)",
-    "csvAmount": "Maallaqa (qarshii)"
+    "csvAmount": "Maallaqa (qarshii)",
+    "paymentQueued": "Neetworkiin hin jiru: kaffaltiin {amount} bilbila kana irratti olkaa'ameera, yeroo interneetiin deebi'u ni ergama. Nagahee isaa booda qophaa'a."
   },
   "attendance": {
     "title": "Argamuu barattootaa",
@@ -265,5 +266,13 @@
     "rankOf": "{size} keessaa {rank}ffaa",
     "teacherSignature": "Barsiisaa kutaa",
     "parentSignature": "Maatii ykn guddisaa"
+  },
+  "offlineQueue": {
+    "queuedPayment": "Kaffaltii barnootaa · {amount}",
+    "error_overpayment": "Kan hafe caalaa kaffalameera.",
+    "error_invoice_not_found": "Gaaffiin kaffaltii kun mana barumsaa keessa hin jiru.",
+    "error_invalid_amount": "Hanga kun hin fudhatamne.",
+    "error_forbidden": "Gaheen kee kaffaltii kana galmeessuu hin danda'u.",
+    "error_other": "Sarvarri hin fudhanne. Mirkaneessiitii irra deebi'ii galchi."
   }
 }

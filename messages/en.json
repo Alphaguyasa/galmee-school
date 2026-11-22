@@ -204,7 +204,8 @@
     "downloadCsv": "Download CSV",
     "csvReceiptNo": "Receipt no.",
     "csvGregorian": "Recorded at (UTC)",
-    "csvAmount": "Amount (birr)"
+    "csvAmount": "Amount (birr)",
+    "paymentQueued": "No network: the payment of {amount} is saved on this phone and will be sent when the internet is back. The receipt is ready after that."
   },
   "attendance": {
     "title": "Attendance",
@@ -265,5 +266,13 @@
     "rankOf": "{rank} of {size}",
     "teacherSignature": "Homeroom teacher",
     "parentSignature": "Parent or guardian"
+  },
+  "offlineQueue": {
+    "queuedPayment": "Fee payment · {amount}",
+    "error_overpayment": "More than was left to pay on this invoice.",
+    "error_invoice_not_found": "This invoice is no longer in the school.",
+    "error_invalid_amount": "The amount was not accepted.",
+    "error_forbidden": "Your role may not record this payment.",
+    "error_other": "The server refused this. Check it and enter it again."
   }
 }
