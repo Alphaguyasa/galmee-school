@@ -1247,6 +1247,10 @@ export type Database = {
         Args: { p_class_id: string; p_period_key: string }
         Returns: Json
       }
+      sc_queue_report_card_notices: {
+        Args: { p_class_id: string; p_year: number; p_term: number }
+        Returns: Json
+      }
       sc_record_fee_payment: {
         Args: { p_invoice: string; p_amount: number; p_method?: Database["public"]["Enums"]["pay_method"]; p_reference?: string; p_client_ref?: string }
         Returns: Json
