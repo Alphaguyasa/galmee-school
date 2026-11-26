@@ -71,8 +71,8 @@
     "searchPlaceholder": "ስም፣ ቁጥር ወይም ስልክ",
     "search": "ፈልግ",
     "class": "ክፍል",
-    "count": "{count} ተማሪዎች",
-    "searchResults": "ለ\"{q}\" {count} ውጤቶች",
+    "count": "{count, plural, one {# ተማሪ} other {# ተማሪዎች}}",
+    "searchResults": "ለ\"{q}\" {count, plural, one {# ውጤት} other {# ውጤቶች}}",
     "noMatch": "የሚዛመድ ተማሪ የለም። ፊደሉን ያረጋግጡ ወይም የወላጅ ስልክ ይሞክሩ።",
     "emptyClass": "በዚህ ክፍል ገና ተማሪ የለም። የመጀመሪያውን ተማሪ ይመዝግቡ።",
     "noClasses": "ገና ክፍሎች የሉም",
@@ -112,7 +112,7 @@
     "parents": "ወላጆች",
     "parentsTitle": "የወላጆች ስልክ",
     "noParents": "ገና ወላጆች የሉም። ተማሪዎችን ሲመዘግቡ እዚህ ይታያሉ።",
-    "parentCount": "{count} ወላጆች",
+    "parentCount": "{count, plural, one {# ወላጅ} other {# ወላጆች}}",
     "idCards": "የመታወቂያ ካርዶች",
     "printIdCards": "መታወቂያ አትም",
     "idCardsSheets": "{cards} ካርድ በ{sheets} A4 ወረቀት",
@@ -270,9 +270,9 @@
     "notifyHint": "ውጤቱ ለገባ ለእያንዳንዱ ተማሪ አንድ መልዕክት፦ ወላጁ ቴሌግራም ካገናኘ በቴሌግራም፣ ካልሆነ በኤስኤምኤስ። እያንዳንዱ ወላጅ በወሰነ ትምህርት አንድ ጊዜ ብቻ ይነገረዋል።",
     "notifyButton": "የውጤት ካርዶች ተዘጋጅተዋል",
     "notifySent": "ተልኳል፦ {telegram} በቴሌግራም፣ {sms} በኤስኤምኤስ።",
-    "notifyAlready": "{count} ወላጆች በዚህ ወሰነ ትምህርት ቀድመው ተነግሯቸዋል።",
-    "notifyNoMarks": "{count} ተማሪዎች በዚህ ወሰነ ትምህርት ገና ውጤት የላቸውም።",
-    "notifyNoContact": "{count} ተማሪዎች የወላጅ ስልክ ወይም ቴሌግራም የላቸውም።",
+    "notifyAlready": "{count, plural, one {# ወላጅ በዚህ ወሰነ ትምህርት ቀድሞ ተነግሯቸዋል።} other {# ወላጆች በዚህ ወሰነ ትምህርት ቀድመው ተነግሯቸዋል።}}",
+    "notifyNoMarks": "{count, plural, one {# ተማሪ በዚህ ወሰነ ትምህርት ገና ውጤት የለውም።} other {# ተማሪዎች በዚህ ወሰነ ትምህርት ገና ውጤት የላቸውም።}}",
+    "notifyNoContact": "{count, plural, one {# ተማሪ የወላጅ ስልክ ወይም ቴሌግራም የለውም።} other {# ተማሪዎች የወላጅ ስልክ ወይም ቴሌግራም የላቸውም።}}",
     "errorNotify": "መላክ አልተቻለም። ግንኙነትዎን ያረጋግጡና እንደገና ይሞክሩ፤ ማንም ወላጅ ሁለት ጊዜ አይነገረውም።"
   },
   "offlineQueue": {
@@ -344,7 +344,7 @@
       "clientRef": "የስልክ ማጣቀሻ",
       "maxMark": "ከ",
       "subject": "ትምህርት",
-      "term": "ሴሚስተር",
+      "term": "ተርም",
       "mark": "ውጤት",
       "updated": "የተሻሻለበት",
       "day": "ቀን",
@@ -369,19 +369,19 @@
       },
       "period": {
         "monthly": "በየወሩ",
-        "term": "በየሴሚስተሩ",
+        "term": "በየተርሙ",
         "annual": "በየዓመቱ"
       },
       "invoiceStatus": {
         "paid": "ተከፍሏል",
-        "partial": "በከፊል ተከፍሏል",
+        "partial": "በከፊል ከፍሏል",
         "unpaid": "አልተከፈለም"
       },
       "attendance": {
         "present": "ተገኝቷል",
         "absent": "ቀርቷል",
-        "late": "አርፍዷል",
-        "excused": "በፈቃድ"
+        "late": "ዘግይቷል",
+        "excused": "ፈቃድ"
       },
       "method": {
         "cash": "ጥሬ ገንዘብ",

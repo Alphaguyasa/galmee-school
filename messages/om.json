@@ -316,7 +316,7 @@
       "parentId": "Eenyummeessaa maatii",
       "created": "Kan galmeeffame",
       "phone": "Bilbila",
-      "relation": "Firooma",
+      "relation": "Firummaa",
       "telegram": "Telegraamiin walqabate",
       "class": "Kutaa",
       "grade": "Sadarkaa",
@@ -364,7 +364,7 @@
         "parent": "Maatii",
         "mother": "Haadha",
         "father": "Abbaa",
-        "guardian": "Kan guddisu",
+        "guardian": "Kunuunsaa",
         "other": "Kan biraa"
       },
       "period": {
@@ -374,13 +374,13 @@
       },
       "invoiceStatus": {
         "paid": "Kaffalameera",
-        "partial": "Gartokkoon kaffalame",
+        "partial": "Gartokkoo kaffaleera",
         "unpaid": "Hin kaffalamne"
       },
       "attendance": {
-        "present": "Jira",
+        "present": "Argame",
         "absent": "Hafe",
-        "late": "Tursiise",
+        "late": "Ture",
         "excused": "Hayyama"
       },
       "method": {
