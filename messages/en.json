@@ -282,5 +282,131 @@
     "error_invalid_amount": "The amount was not accepted.",
     "error_forbidden": "Your role may not record this payment.",
     "error_other": "The server refused this. Check it and enter it again."
+  },
+  "export": {
+    "title": "Keep a copy of everything",
+    "hint": "One Excel file with every student, parent, class, fee, receipt, mark and attendance day. Only the owner can download it.",
+    "button": "Download all data (Excel)",
+    "error": "Could not make the file. Check your connection and try again.",
+    "yes": "Yes",
+    "no": "No",
+    "sheet": {
+      "about": "About",
+      "students": "Students",
+      "parents": "Parents",
+      "classes": "Classes",
+      "enrollments": "Enrollments",
+      "feePlans": "Fee plans",
+      "invoices": "Fees",
+      "receipts": "Receipts",
+      "subjects": "Subjects",
+      "marks": "Marks",
+      "attendance": "Attendance",
+      "staff": "Staff"
+    },
+    "col": {
+      "id": "ID",
+      "studentNo": "Student no.",
+      "name": "Name",
+      "gender": "Gender",
+      "birthDate": "Date of birth",
+      "status": "Status",
+      "parent": "Parent",
+      "parentPhone": "Parent phone",
+      "parentId": "Parent ID",
+      "created": "Created",
+      "phone": "Phone",
+      "relation": "Relation",
+      "telegram": "Telegram linked",
+      "class": "Class",
+      "grade": "Grade",
+      "section": "Section",
+      "active": "Active",
+      "student": "Student",
+      "studentId": "Student ID",
+      "classId": "Class ID",
+      "year": "School year (E.C.)",
+      "rollNo": "Roll no.",
+      "period": "Period",
+      "amount": "Amount (birr)",
+      "periodKey": "Period code",
+      "description": "For",
+      "feePlan": "Fee plan",
+      "paid": "Paid (birr)",
+      "remaining": "Still owed (birr)",
+      "due": "Due date",
+      "receiptNo": "Receipt no.",
+      "forFee": "For fee",
+      "method": "Paid by",
+      "receivedBy": "Received by",
+      "invoiceId": "Fee ID",
+      "paymentId": "Payment ID",
+      "clientRef": "Phone reference",
+      "maxMark": "Out of",
+      "subject": "Subject",
+      "term": "Term",
+      "mark": "Mark",
+      "updated": "Updated",
+      "day": "Day",
+      "role": "Role"
+    },
+    "value": {
+      "gender": {
+        "m": "Male",
+        "f": "Female"
+      },
+      "studentStatus": {
+        "active": "Active",
+        "left": "Left",
+        "graduated": "Graduated"
+      },
+      "relation": {
+        "parent": "Parent",
+        "mother": "Mother",
+        "father": "Father",
+        "guardian": "Guardian",
+        "other": "Other"
+      },
+      "period": {
+        "monthly": "Every month",
+        "term": "Every term",
+        "annual": "Every year"
+      },
+      "invoiceStatus": {
+        "paid": "Paid",
+        "partial": "Partly paid",
+        "unpaid": "Not paid"
+      },
+      "attendance": {
+        "present": "Present",
+        "absent": "Absent",
+        "late": "Late",
+        "excused": "Excused"
+      },
+      "method": {
+        "cash": "Cash",
+        "telebirr": "Telebirr",
+        "cbe_birr": "CBE Birr",
+        "chapa": "Chapa",
+        "bank": "Bank",
+        "other": "Other"
+      },
+      "role": {
+        "owner": "Owner",
+        "manager": "Manager",
+        "staff": "Staff"
+      }
+    },
+    "about": {
+      "field": "Item",
+      "value": "Value",
+      "business": "School",
+      "exportedAt": "Exported at",
+      "dates": "Dates",
+      "datesNote": "Dates and times are Gregorian, in UTC, as stored. School years are Ethiopian.",
+      "sheet": "Sheet",
+      "rows": "Rows",
+      "truncated": "Only the first {cap} rows; ask for a full copy"
+    }
   }
 }

@@ -282,5 +282,131 @@
     "error_invalid_amount": "መጠኑ ተቀባይነት አላገኘም።",
     "error_forbidden": "የእርስዎ ሚና ይህን ክፍያ መመዝገብ አይፈቅድም።",
     "error_other": "አገልጋዩ አልተቀበለውም። ያረጋግጡና እንደገና ያስገቡ።"
+  },
+  "export": {
+    "title": "የሁሉንም ነገር ቅጂ ያስቀምጡ",
+    "hint": "የሁሉም ተማሪዎች፣ ወላጆች፣ ክፍሎች፣ ክፍያዎች፣ ደረሰኞች፣ ውጤቶች እና የመገኘት ቀናት አንድ የExcel ፋይል። ማውረድ የሚችለው ባለቤቱ ብቻ ነው።",
+    "button": "ሁሉንም መረጃ አውርድ (Excel)",
+    "error": "ፋይሉን መሥራት አልተቻለም። ግንኙነትዎን አረጋግጠው እንደገና ይሞክሩ።",
+    "yes": "አዎ",
+    "no": "አይ",
+    "sheet": {
+      "about": "ስለ ፋይሉ",
+      "students": "ተማሪዎች",
+      "parents": "ወላጆች",
+      "classes": "ክፍሎች",
+      "enrollments": "ምዝገባዎች",
+      "feePlans": "የክፍያ ዕቅዶች",
+      "invoices": "ክፍያዎች",
+      "receipts": "ደረሰኞች",
+      "subjects": "ትምህርቶች",
+      "marks": "ውጤቶች",
+      "attendance": "መገኘት",
+      "staff": "ሠራተኞች"
+    },
+    "col": {
+      "id": "መለያ",
+      "studentNo": "የተማሪ ቁጥር",
+      "name": "ስም",
+      "gender": "ጾታ",
+      "birthDate": "የትውልድ ቀን",
+      "status": "ሁኔታ",
+      "parent": "ወላጅ",
+      "parentPhone": "የወላጅ ስልክ",
+      "parentId": "የወላጅ መለያ",
+      "created": "የተመዘገበበት",
+      "phone": "ስልክ",
+      "relation": "ዝምድና",
+      "telegram": "ቴሌግራም ተገናኝቷል",
+      "class": "ክፍል",
+      "grade": "ክፍል ደረጃ",
+      "section": "ሴክሽን",
+      "active": "ንቁ",
+      "student": "ተማሪ",
+      "studentId": "የተማሪ መለያ",
+      "classId": "የክፍል መለያ",
+      "year": "የትምህርት ዘመን (ዓ.ም.)",
+      "rollNo": "ተራ ቁጥር",
+      "period": "ጊዜ",
+      "amount": "መጠን (ብር)",
+      "periodKey": "የጊዜ ኮድ",
+      "description": "ለ",
+      "feePlan": "የክፍያ ዕቅድ",
+      "paid": "የተከፈለ (ብር)",
+      "remaining": "ቀሪ ዕዳ (ብር)",
+      "due": "የመክፈያ ቀን",
+      "receiptNo": "የደረሰኝ ቁጥር",
+      "forFee": "ለክፍያ",
+      "method": "የተከፈለበት",
+      "receivedBy": "የተቀበለው",
+      "invoiceId": "የክፍያ መለያ",
+      "paymentId": "የክፍያ ግብይት መለያ",
+      "clientRef": "የስልክ ማጣቀሻ",
+      "maxMark": "ከ",
+      "subject": "ትምህርት",
+      "term": "ሴሚስተር",
+      "mark": "ውጤት",
+      "updated": "የተሻሻለበት",
+      "day": "ቀን",
+      "role": "ሚና"
+    },
+    "value": {
+      "gender": {
+        "m": "ወንድ",
+        "f": "ሴት"
+      },
+      "studentStatus": {
+        "active": "ንቁ",
+        "left": "የለቀቀ",
+        "graduated": "የተመረቀ"
+      },
+      "relation": {
+        "parent": "ወላጅ",
+        "mother": "እናት",
+        "father": "አባት",
+        "guardian": "አሳዳጊ",
+        "other": "ሌላ"
+      },
+      "period": {
+        "monthly": "በየወሩ",
+        "term": "በየሴሚስተሩ",
+        "annual": "በየዓመቱ"
+      },
+      "invoiceStatus": {
+        "paid": "ተከፍሏል",
+        "partial": "በከፊል ተከፍሏል",
+        "unpaid": "አልተከፈለም"
+      },
+      "attendance": {
+        "present": "ተገኝቷል",
+        "absent": "ቀርቷል",
+        "late": "አርፍዷል",
+        "excused": "በፈቃድ"
+      },
+      "method": {
+        "cash": "ጥሬ ገንዘብ",
+        "telebirr": "ቴሌብር",
+        "cbe_birr": "ሲቢኢ ብር",
+        "chapa": "ቻፓ",
+        "bank": "ባንክ",
+        "other": "ሌላ"
+      },
+      "role": {
+        "owner": "ባለቤት",
+        "manager": "ሥራ አስኪያጅ",
+        "staff": "ሠራተኛ"
+      }
+    },
+    "about": {
+      "field": "ርዕስ",
+      "value": "ዋጋ",
+      "business": "ትምህርት ቤት",
+      "exportedAt": "የወጣበት ጊዜ",
+      "dates": "ቀናት",
+      "datesNote": "ቀናት እና ሰዓቶች እንደተቀመጡት በግሪጎሪያን አቆጣጠር እና በUTC ናቸው። የትምህርት ዘመኖች በኢትዮጵያ አቆጣጠር ናቸው።",
+      "sheet": "ሉህ",
+      "rows": "ረድፎች",
+      "truncated": "የመጀመሪያዎቹ {cap} ረድፎች ብቻ፤ ሙሉ ቅጂ ይጠይቁ"
+    }
   }
 }

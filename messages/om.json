@@ -282,5 +282,131 @@
     "error_invalid_amount": "Hanga kun hin fudhatamne.",
     "error_forbidden": "Gaheen kee kaffaltii kana galmeessuu hin danda'u.",
     "error_other": "Sarvarri hin fudhanne. Mirkaneessiitii irra deebi'ii galchi."
+  },
+  "export": {
+    "title": "Waan hundaa garagalcha qabadhaa",
+    "hint": "Faayilii Excel tokko: barattoota, maatii, kutaalee, kaffaltii, nagahee, qabxii fi guyyaa argamaa hunda. Abbaa qabeenyaa qofatu buusuu danda'a.",
+    "button": "Odeeffannoo hunda buusi (Excel)",
+    "error": "Faayilii hojjechuun hin danda'amne. Walqunnamtii keessan mirkaneessaa irra deebi'aa yaalaa.",
+    "yes": "Eeyyee",
+    "no": "Lakki",
+    "sheet": {
+      "about": "Waa'ee",
+      "students": "Barattoota",
+      "parents": "Maatii",
+      "classes": "Kutaalee",
+      "enrollments": "Galmee",
+      "feePlans": "Karoora kaffaltii",
+      "invoices": "Kaffaltii",
+      "receipts": "Nagahee",
+      "subjects": "Gosa barnootaa",
+      "marks": "Qabxii",
+      "attendance": "Argama",
+      "staff": "Hojjettoota"
+    },
+    "col": {
+      "id": "Eenyummeessaa",
+      "studentNo": "Lakk. barataa",
+      "name": "Maqaa",
+      "gender": "Saala",
+      "birthDate": "Guyyaa dhalootaa",
+      "status": "Haala",
+      "parent": "Maatii",
+      "parentPhone": "Bilbila maatii",
+      "parentId": "Eenyummeessaa maatii",
+      "created": "Kan galmeeffame",
+      "phone": "Bilbila",
+      "relation": "Firooma",
+      "telegram": "Telegraamiin walqabate",
+      "class": "Kutaa",
+      "grade": "Sadarkaa",
+      "section": "Kutaa xiqqaa",
+      "active": "Hojii irra",
+      "student": "Barataa",
+      "studentId": "Eenyummeessaa barataa",
+      "classId": "Eenyummeessaa kutaa",
+      "year": "Bara barnootaa (A.L.I.)",
+      "rollNo": "Lakk. tartiibaa",
+      "period": "Yeroo",
+      "amount": "Hanga (birrii)",
+      "periodKey": "Koodii yeroo",
+      "description": "Kanaaf",
+      "feePlan": "Karoora kaffaltii",
+      "paid": "Kan kaffalame (birrii)",
+      "remaining": "Kan hafe (birrii)",
+      "due": "Guyyaa kaffaltii",
+      "receiptNo": "Lakk. nagahee",
+      "forFee": "Kaffaltii",
+      "method": "Karaa kaffaltii",
+      "receivedBy": "Kan fudhate",
+      "invoiceId": "Eenyummeessaa kaffaltii",
+      "paymentId": "Eenyummeessaa daldala",
+      "clientRef": "Wabii bilbilaa",
+      "maxMark": "Keessaa",
+      "subject": "Gosa barnootaa",
+      "term": "Semistara",
+      "mark": "Qabxii",
+      "updated": "Kan haaromfame",
+      "day": "Guyyaa",
+      "role": "Gahee"
+    },
+    "value": {
+      "gender": {
+        "m": "Dhiira",
+        "f": "Dubara"
+      },
+      "studentStatus": {
+        "active": "Hojii irra",
+        "left": "Kan bahe",
+        "graduated": "Kan eebbifame"
+      },
+      "relation": {
+        "parent": "Maatii",
+        "mother": "Haadha",
+        "father": "Abbaa",
+        "guardian": "Kan guddisu",
+        "other": "Kan biraa"
+      },
+      "period": {
+        "monthly": "Ji'a ji'aan",
+        "term": "Semistara semistaraan",
+        "annual": "Waggaa waggaan"
+      },
+      "invoiceStatus": {
+        "paid": "Kaffalameera",
+        "partial": "Gartokkoon kaffalame",
+        "unpaid": "Hin kaffalamne"
+      },
+      "attendance": {
+        "present": "Jira",
+        "absent": "Hafe",
+        "late": "Tursiise",
+        "excused": "Hayyama"
+      },
+      "method": {
+        "cash": "Maallaqa callaa",
+        "telebirr": "Telebirr",
+        "cbe_birr": "CBE Birr",
+        "chapa": "Chapa",
+        "bank": "Baankii",
+        "other": "Kan biraa"
+      },
+      "role": {
+        "owner": "Abbaa qabeenyaa",
+        "manager": "Hoggantaa",
+        "staff": "Hojjetaa"
+      }
+    },
+    "about": {
+      "field": "Wanta",
+      "value": "Gatii",
+      "business": "Mana barumsaa",
+      "exportedAt": "Yeroo baafame",
+      "dates": "Guyyoota",
+      "datesNote": "Guyyoonni fi saatiin akkuma kuufametti, Gorgooriyaanii fi UTC dha. Barri barnootaa kan Itoophiyaa ti.",
+      "sheet": "Fuula",
+      "rows": "Sararoota",
+      "truncated": "Sararoota {cap} jalqabaa qofa; garagalcha guutuu gaafadhaa"
+    }
   }
 }
