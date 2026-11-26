@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { CalendarDays, ChevronRight } from "lucide-react";
+import { CalendarDays, ChevronRight, Download } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 import type { Locale } from "@/i18n/config";
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { currentPeriodKey } from "@/lib/fee-period";
@@ -9,15 +10,17 @@ import { currentSchoolYear } from "@/lib/school-year";
 import { listUnpaidByClass } from "@/server/dal/fees";
 import { getSession } from "@/server/dal/session";
 import { registerCounts } from "@/server/dal/students";
+import { cn } from "@/lib/utils";
 
 export default async function HomePage() {
   const year = currentSchoolYear();
-  const [{ profile }, counts, unpaidRows, t, tCommon, locale] = await Promise.all([
+  const [{ profile }, counts, unpaidRows, t, tCommon, tExport, locale] = await Promise.all([
     getSession(),
     registerCounts(year),
     listUnpaidByClass(year),
     getTranslations("home"),
     getTranslations("common"),
+    getTranslations("export"),
     getLocale() as Promise<Locale>,
   ]);
 
@@ -62,6 +65,18 @@ export default async function HomePage() {
         ))}
       </ul>
       {counts.classes === 0 && profile.role !== "staff" ? <p>{t("startHint")}</p> : null}
+      {profile.role === "owner" ? (
+        <section aria-labelledby="export-all" className="grid gap-2 border-t pt-5 md:max-w-md">
+          <h2 id="export-all" className="text-lg font-bold">
+            {tExport("title")}
+          </h2>
+          <p className="text-sm text-muted-foreground">{tExport("hint")}</p>
+          <a href="/export" download className={cn(buttonVariants({ variant: "outline", size: "lg" }), "justify-self-start")}>
+            <Download className="size-4" aria-hidden />
+            {tExport("button")}
+          </a>
+        </section>
+      ) : null}
     </div>
   );
 }
