@@ -61,7 +61,8 @@
 - [x] Report-card-ready Telegram batch
 - [ ] Teacher role: restrict mark entry to own subjects (with audit log)
 - [ ] Academic-year roll-over (promote classes, close year)
-- [ ] Excel import of students; export everything
+- [x] Export everything to one Excel file (owner only)
+- [ ] Excel import of students
 
 ## M3: Notifications
 
@@ -79,7 +80,7 @@
 
 - [ ] Receipt printing (58/80 mm thermal) and Telegram receipt
 - [ ] Data import from Excel/CSV
-- [ ] Export all tenant data to Excel
+- [x] Export all tenant data to Excel
 - [ ] Error monitoring hook (Sentry, DSN via env)
 - [ ] README: setup, env vars, deploy steps
 
